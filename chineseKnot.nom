@@ -1,0 +1,152 @@
+include colours.nom endinclude
+
+circle cir (0.75 100 ) endcircle
+circle cir2 (0.25 100)endcircle
+
+#### reference lines ####
+point t1 (0 0 0) endpoint
+point t2 (-13 -1.5 5) endpoint
+point t3 (13 -1.5 5) endpoint
+point t4 (13 -1.5 0) endpoint
+point t4_d (13 1.5 0) endpoint
+point t5 (-13 1.5 0) endpoint
+point t6 (0 -1.5 -3) endpoint
+point t7 (5 1.5 -3) endpoint
+point t8 (10 1.5 -3) endpoint
+point t8_d (10 -1.5 -3) endpoint
+point t9 (-5 1.5 -3) endpoint
+polyline line1 (t1 t2) endpolyline
+polyline line2 (t1 t3) endpolyline
+polyline line3 (t1 t4) endpolyline
+polyline line4 (t1 t5) endpolyline
+polyline line5 (t1 t6) endpolyline
+polyline line6 (t1 t7) endpolyline
+polyline line7 (t1 t8) endpolyline
+### instance showpoly1 line1 surface B endinstance
+### instance showpoly2 line2 surface B endinstance
+### instance showpoly3 line3 surface B endinstance
+### instance showpoly4 line4 surface B endinstance
+### instance showpoly5 line5 surface B endinstance
+### instance showpoly6 line6 surface B endinstance
+### instance showpoly7 line7 surface B endinstance
+
+
+point e00 (-13 -1.5 0) endpoint
+point e0 (-13 -1.5 0) endpoint
+point p1 (-13 -1.5 0) endpoint
+point p2 (-11 0.5 0) endpoint
+point p3 (-9 1 0) endpoint
+point p4 (-7 0 0) endpoint
+point p5 (-5 -1.5 0) endpoint
+point p6 (-3 0 0) endpoint
+point p7 (0 1.5 0) endpoint
+point p8 (3 0 0) endpoint
+point p9 (5 -1.5 0) endpoint
+point p10 (7 0 0) endpoint
+point p11 (9 1 0) endpoint
+point p12 (11 0.5 0) endpoint
+point p13 (13 -1.5 0) endpoint
+point e1 (13 -1.5 0) endpoint
+point e11 (13 -1.5 0) endpoint
+
+
+bspline bsl order (4) (e00 e0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 e1 e11) segs (100) endbspline
+group lines
+    instance line1 bsl endinstance
+    instance line2 bsl rotate (1 0 0) (180) translate (0 0 5) endinstance
+    instance line3 bsl translate (0 0 10) endinstance
+    instance line4 bsl rotate (1 0 0) (180) translate (0 0 15) endinstance
+    instance line5 bsl translate (0 0 20) endinstance
+endgroup
+
+instance refshow1 lines rotate (0 1 0) (90) translate (-10 0 10) endinstance
+instance refshow2 lines rotate (1 0 0) (180) translate (0 0 20) endinstance
+
+
+sweep sw
+    crosssection cir endcrosssection
+    path bsl mintorsion twist (0) endpath
+endsweep
+
+group g1
+    instance swline1 sw surface R endinstance
+    instance swline2 sw rotate (1 0 0) (180) translate (0 0 5) surface R endinstance
+    instance swline3 sw translate (0 0 10) surface R endinstance
+    instance swline4 sw rotate (1 0 0) (180) translate (0 0 15) surface R endinstance
+    instance swline5 sw translate (0 0 20) surface R endinstance
+endgroup
+
+instance show1 g1 rotate (0 1 0) (90) translate (-10 0 10) endinstance
+instance show2 g1 rotate (1 0 0) (180) translate (0 0 20) endinstance
+   
+###########################  
+
+point bcp1 (10 0.8 -13) endpoint
+point bcp2 (5 2 -3.5) endpoint
+point bcp3 (21 0 -11) endpoint
+point bcp4 (13.5 -2 5) endpoint
+point bcp5 (23 -0.8 0) endpoint
+bspline bcspl order (4) (t7 t7 t7 bcp2 bcp1 bcp3 bcp5 bcp4 t3 t3 t3) segs(100) endbspline
+instance showbcspline bcspl surface B endinstance
+
+sweep swbc
+    crosssection cir endcrosssection
+    path bcspl mintorsion twist (0) endpath
+endsweep
+
+instance showswbc swbc surface R endinstance
+instance showswbc swbc rotate (0 1 0) (180) translate (0 0 20) surface R endinstance
+
+###########################
+
+point bcp1 (10 0.8 -4) endpoint
+point bcp1_d (15 0.2 -10) endpoint
+point bcp2 (10 2 -3.5) endpoint
+point bcp3 (30 0 -20) endpoint
+point bcp4 (13.5 -2 0) endpoint
+point bcp5_d (23 0 -10) endpoint
+point bcp5 (16 -0.8 -4) endpoint
+bspline bcspl order (4) (t8 t8 t8 bcp2 bcp1 bcp1_d bcp3 bcp5_d bcp5 bcp4 t4 t4 t4) segs(100) endbspline
+
+sweep swbc
+    crosssection cir endcrosssection
+    path bcspl mintorsion twist (0) endpath
+endsweep
+
+instance showswbc swbc rotate (0 1 0) (-90) translate (10 0 10) surface R endinstance
+instance showswbc swbc rotate (0 1 0) (90) translate (-10 0 10) surface R endinstance
+
+###########################
+
+point bcp1 (10 -0.8 -5) endpoint
+point bcp2 (10 -2 -3.5) endpoint
+point bcp3 (15 0 -5) endpoint
+point bcp4 (13.5 2 0) endpoint
+point bcp5 (15 0.8 0) endpoint
+bspline bcspl order (4) (t8_d t8_d t8_d bcp2 bcp1 bcp3 bcp5 bcp4 t4_d t4_d t4_d) segs(100) endbspline
+
+sweep swbc
+    crosssection cir endcrosssection
+    path bcspl mintorsion twist (0) endpath
+endsweep
+
+instance showswbc swbc surface R endinstance
+instance showswbc swbc rotate (0 1 0) (180) translate (0 0 20) surface R endinstance
+
+###########################
+
+
+point bcp2 (0 -2 -3.5) endpoint
+point bcp3 (-2.5 0 -5) endpoint
+point bcp4 (-5 2 -3.5) endpoint
+bspline bcspl1 order (4) (t6 t6 t6 bcp2 bcp3 bcp4 t9 t9 t9) segs(100) endbspline
+
+sweep swbc1
+    crosssection cir endcrosssection
+    path bcspl1 mintorsion twist (0) endpath
+endsweep
+
+instance showswbc1 swbc1 surface R endinstance
+instance showswbc2 swbc1 rotate (0 1 0) (90) translate (-10 0 5) surface R endinstance
+instance showswbc3 swbc1 rotate (0 1 0) (-90) translate (10 0 15) surface R endinstance
+instance showswbc3 swbc1 rotate (0 1 0) (180) translate (0 0 20) surface R endinstance

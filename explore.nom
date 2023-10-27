@@ -1,0 +1,21 @@
+include colours.nom endinclude
+### include "exprtk.hpp" endinclude
+
+### 2023.9.25
+### explore
+
+genparametricsurf Sp 
+    funcX [(1+u)*(4+cos(-v))*cos(-1.57u)+9/2] 
+    funcY [(1+u)*(4+cos(-v))*sin(-1.57u)-5/2] 
+    funcZ [expr {-4u+(1 + u)*sin(-v)-30}] 
+    (0 3*3.1415926 0 (5*3.1415926) 100 100) 
+endgenparametricsurf
+instance sSpiral Sp translate (-1 0 0) surface C endinstance
+
+### genparametricsurf Ball 
+###     funcX [10*sin(u)*cos(v)] 
+###     funcY [10*sin(u)*sin(v)] 
+###     funcZ [10*cos(u)] 
+###     (0 3.1415926 0 (2*3.1415926) 100 100) 
+### endgenparametricsurf
+### instance showBall Ball translate (-1 0 0) surface GR endinstance

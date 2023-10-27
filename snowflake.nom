@@ -1,0 +1,69 @@
+### 10.6.2023
+### trying to built snowflake
+
+include colours.nom endinclude
+
+mesh snowmesh
+    ### points to form a snowflake
+    point p1 (0 0 0) endpoint
+    point pm1 (0 9.5 0.3) endpoint
+    point p2 (0 25 0) endpoint
+    point p3 (-3 14 0) endpoint
+    point pd3 (3 14 0) endpoint
+    point p4 (-1 9.5 0) endpoint
+    point pd4 (1 9.5 0) endpoint
+    point p5 (-1 5 0) endpoint
+    point pd5 (1 5 0) endpoint
+    point p6 (-2.73 9.6 0) endpoint
+    point pd6 (2.73 9.6 0) endpoint
+    point p7 (-2.73 7 0) endpoint
+    point pd7 (2.73 7 0) endpoint
+    point p8 (-3.6 12 0) endpoint
+    point pd8 (3.6 12 0) endpoint
+    point p9 (-7.5 13 0) endpoint
+    point pd9 (7.5 13 0) endpoint
+    point p10 (-6.5 11.26 0) endpoint
+    point pd10 (6.5 11.26 0) endpoint
+    point p11 (-4 10 0) endpoint
+    point pd11 (4 10 0) endpoint
+    point p12 (-3.8 6.58 0) endpoint
+    point pd12 (3.8 6.58 0) endpoint
+    point p13 (-2.73 4.73 0) endpoint
+    point pd13 (2.73 4.73 0) endpoint
+    point p14 (-1 3.73 0) endpoint
+    point pd14 (1 3.73 0) endpoint
+    point p15 (-1 1.73 0) endpoint
+    point pd15 (1 1.73 0) endpoint
+    face tri1 (p1 pm1 p15) endface
+    face trid1 (pd15 pm1 p1) endface
+    face tri2 (pm1 p4 p15) endface
+    face trid2 (pd15 pd4 pm1) endface
+    face rect1 (pm1 p2 p3 p4) endface
+    face rectd1 (pd4 pd3 p2 pm1) endface
+    face rect2 (p5 p6 p13 p15) endface
+    face rectd2 (pd15 pd13 pd6 pd5) endface
+    face rect3 (p7 p8 p12 p13) endface
+    face rectd3 (pd13 pd12 pd8 pd7) endface
+    face tri3 (p8 p11 p12) endface
+    face trid3 (pd12 pd11 pd8) endface
+    face rect (p8 p9 p10 p11) endface
+    face rectd (pd11 pd10 pd9 pd8) endface
+endmesh
+
+group oneSnowFlake
+instance part1 snowmesh rotate (0 0 0) (0) translate (0 0 0) surface A endinstance
+instance part2 snowmesh rotate (0 0 1) (60) translate (0 0 0) surface C endinstance
+instance part3 snowmesh rotate (0 0 1) (120) translate (0 0 0) surface C endinstance
+instance part4 snowmesh rotate (0 0 1) (180) translate (0 0 0) surface A endinstance
+instance part5 snowmesh rotate (0 0 1) (240) translate (0 0 0) surface C endinstance
+instance part6 snowmesh rotate (0 0 1) (300) translate (0 0 0) surface C endinstance
+endgroup
+
+instance snowflake1 oneSnowFlake rotate (0 0 0) (0) translate (0 0 0) surface C endinstance
+instance snowflake2 oneSnowFlake rotate (-1 0 0) (90) translate (0 25 -25) surface C endinstance
+instance snowflake3 oneSnowFlake rotate (-1 0 0) (-90) translate (0 -25 -25) surface C endinstance
+instance snowflake4 oneSnowFlake rotate (-1 0 0) (180) translate (0 0 -50) surface C endinstance
+instance snowflake5 oneSnowFlake rotate (-1 0 0) (180) translate (0 0 -0.01) surface C endinstance
+instance snowflake6 oneSnowFlake rotate (0 0 0) (0) translate (0 0 -49.99) surface C endinstance
+instance snowflake7 oneSnowFlake rotate (-1 0 0) (90) translate (0 -24.99 -25) surface C endinstance
+instance snowflake8 oneSnowFlake rotate (-1 0 0) (-90) translate (0 24.99 -25) surface C endinstance

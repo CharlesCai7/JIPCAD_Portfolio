@@ -1,0 +1,8 @@
+### 2023.9.7
+### trying to build a heart shape with b-spline and sweep
+
+bspline leftheart order  endbspline
+
+surface W  color  (1   1   1  ) endsurface   # White
+surface B  color  (0   0   0  ) endsurface   # Black
+surface O  color  (1   0.6 0  ) endsurface   # Orange

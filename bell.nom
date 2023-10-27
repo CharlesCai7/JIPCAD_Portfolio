@@ -1,0 +1,54 @@
+include colours.nom endinclude
+
+### include z_inclSurfaces.nom endinclude
+
+bank par
+set speed 1 0 40 0.1
+set boltSegs 4 3 100 1
+list(speed)
+endbank
+
+##############YOKE###############
+
+point sq1 (-1 1 0) endpoint
+point sq2 (-1 -1 0) endpoint
+point sq3 (1 -1 0) endpoint
+point sq4 (1 1 0) endpoint
+
+mesh cube
+face side (sq1 sq2 sq3 sq4 sq1) endface
+endmesh
+
+group halfCube
+instance sCube cube  rotate (1 0 0) (180) endinstance
+instance lid cube translate (0 0 2) endinstance
+instance leftSide cube rotate (1 0 0) (90) translate (0 -1 1) surface O endinstance
+endgroup
+
+group fullCube
+instance sHalfCube halfCube rotate (1 0 1) (180) translate (-1 0 1) surface ZC endinstance
+instance otherHalf halfCube surface BR endinstance
+endgroup
+
+group rotateYoke
+instance topYoke fullCube scale(6 1 1/2) translate(0 1/2 -1/2) rotate(1 0 0) (-90) endinstance
+instance leftYoke fullCube scale(1 3 1) translate (-4 -1 -1) rotate(1 0 0) (-90) endinstance
+instance rightYoke fullCube scale(1 3 1) translate (4 -1 -1) rotate(1 0 0) (-90)  endinstance
+endgroup
+
+instance sRotateYoke rotateYoke rotate(0 0 1) (-90) endinstance
+
+############BELL##############
+
+genimplicitsurf LibBell func [-(z^2)+((1.25x)^2)+((1.25y)^2)-20] (-10 10 -10 10 0 10  30 30 30) endgenimplicitsurf
+instance sBellCup LibBell translate (0 0 3) surface GR endinstance
+
+genimplicitsurf bellTop func [-z+((x/sqrt(4.25))^2)+((y/sqrt(4.25))^2)] (-10 10 -10 10 -3 3 30 30 30) endgenimplicitsurf
+instance sBellTop bellTop surface GR endinstance
+
+### torus bellLip (8.57904423581 (8.94427191-8.57904423581)*2 360 0 360 30 30) endtorus
+### instance sBellLip bellLip translate (0 0 13 ) surface GR endinstance
+
+### cylinder topCapper (0.75 0.55 360 30 botcap topcap) endcylinder
+### instance sTopCapper topCapper surface GR endinstance
+

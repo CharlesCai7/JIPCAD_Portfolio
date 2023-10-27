@@ -1,0 +1,28 @@
+### 2023.9.8
+### playground for sweep
+include colours.nom endinclude
+
+circle cir (1 100) endcircle
+point sp1 (-1 1 0) endpoint
+point sp2 (1 1 0) endpoint
+point sp3 (1 -1 0) endpoint
+point sp4 (-1 -1 0) endpoint
+point p1 (0 0 0) endpoint
+point p (0 0 0.5) endpoint
+point p2 (0 0 1) endpoint
+
+controlpoint cp1 point p1 scale (0 0 0) rotate (0 0 0) endcontrolpoint
+controlpoint cp2 point p scale (0.5 0.5 0) rotate (0 15 45) endcontrolpoint
+controlpoint cp3 point p2 scale (1 1 0) rotate (0 0 0) reverse endcontrolpoint
+### controlpoint cp4 point p scale (-1.5 -1.5 0) rotate (0 0 0) endcontrolpoint
+### controlpoint cp5 point p1 scale (-2 -2 0) rotate (0 0 0) endcontrolpoint
+polyline l1 (cp1 cp2 p2) endpolyline
+polyline sq (sp1 sp2 sp3 sp4 sp1) endpolyline
+
+sweep sw
+    crosssection sq endcrosssection
+    path l1 mintorsion twist (0) endpath
+endsweep
+
+### instance showcir sq scale (2 2 2) translate (0 0 0) surface B endinstance
+instance showsw sw scale (2 2 2) translate (0 0 0) surface L endinstance

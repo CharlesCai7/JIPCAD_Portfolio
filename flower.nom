@@ -1,0 +1,94 @@
+### 9.22.2023
+### trying to realize the flower blooming process
+
+include colours.nom endinclude
+
+### Sliders
+bank b
+    set speed 0 0 0.5 0.1
+	set s_twist 720 0.1 720 1
+	set s_azimuth 0 0.1 360 1
+	list (speed s_twist s_azimuth)
+endbank
+
+### Sphere for stamen
+sphere mysph ({expr 1.5 - sin($b.speed * $frame)} 360 0 90 10 10) endsphere
+
+### Path
+circle mycir1 ({expr 2.8 - sin($b.speed * $frame)} 100) endcircle
+circle cirvest (5 100) endcircle
+### instance myci cirvest rotate (0 0 0) (0) translate (0 0 0) surface Z endinstance
+
+point center (0 0 0) endpoint
+point mid (0 0 -10) endpoint
+point end (0 0 -40) endpoint
+polyline myp (center mid end) endpolyline
+
+circle cir (7 100) endcircle
+point p1 (0 0 0) endpoint
+point p2 (0 0 -40) endpoint
+polyline l1 (p1 p2) endpolyline
+
+sweep sw
+    crosssection cir endcrosssection
+    path l1 mintorsion twist (90) endpath
+endsweep
+
+### CrossSection
+point point1 (0 -2 0) endpoint
+point point2 (2 0 0) endpoint
+point point3 (0 2 0) endpoint
+point point4 (-2 0 0) endpoint
+polyline crossSection (point1 point2 point3 point4) closed endpolyline
+
+circle mycir2 (0.5 100) endcircle
+
+### Sweep
+sweep swpetal
+    crosssection crossSection endcrosssection
+    path mycir1 mintorsion azimuth {expr $b.s_azimuth} twist {expr $b.s_twist} endpath
+endsweep
+
+sweep swstem
+    crosssection mycir2 endcrosssection
+    path myp mintorsion azimuth {expr $b.s_azimuth} twist {expr $b.s_twist} endpath
+endsweep
+
+### sweep swvest
+###     crosssection mybs endcrosssection
+###     path cirvest mintorsion azimuth {expr $b.s_azimuth} twist {expr $b.s_twist} endpath
+### endsweep
+
+group g1
+    instance petal swpetal surface Y endinstance
+    instance stem swstem surface G endinstance
+    instance stamen mysph surface O endinstance
+endgroup
+
+group g2
+    instance petal2 swpetal rotate (5 5 0) (-7) translate (-5 5 0.5) surface Y endinstance
+    instance stem2 swstem rotate (5 5 0) (-7) translate (-5 5 0.5) surface G endinstance
+    instance stamen2 mysph rotate (5 5 0) (-7) translate (-5 5 0.5) surface O endinstance
+endgroup
+
+group g3
+    instance petal3 swpetal rotate (5 -5 0) (7) translate (-5 -5 0.5) surface Y endinstance
+    instance stem3 swstem rotate (5 -5 0) (7) translate (-5 -5 0.5) surface G endinstance
+    instance stamen3 mysph rotate (5 -5 0) (7) translate (-5 -5 0.5) surface O endinstance
+endgroup
+
+group g4
+    instance petal4 swpetal rotate (0 5 0) (-3) translate (-5 0 5) surface LR endinstance
+    instance stem4 swstem rotate (0 5 0) (-3) translate (-5 0 5) surface A endinstance
+    instance stamen4 mysph rotate (0 5 0) (-3) translate (-5 0 5) surface Z endinstance
+endgroup
+
+group final_gro
+instance flower1 g1 endinstance
+instance flower2 g2 endinstance
+instance flower3 g3 endinstance
+instance flower4 g4 endinstance
+endgroup
+
+instance show final_gro rotate (0 0 10) (0) translate (0 0 0) surface B endinstance
+instance vest sw rotate (0 0 0) (0) translate (-3 0 -8) surface O endinstance

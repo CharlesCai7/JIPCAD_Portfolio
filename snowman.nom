@@ -1,0 +1,27 @@
+### 2023.9.6
+### Blocky the snowman
+
+sphere sph (1 360 0 360 10 10) endsphere
+
+cylinder body (1 1 360 10) endcylinder
+
+funnel legs (1 1.5 1 10) endfunnel
+
+circle c (1 50) endcircle
+
+point p1 (0 1 0) endpoint
+point p2 (1 0 0) endpoint
+point p3 (2 1 0) endpoint
+
+polyline ply (p1 p2 p3) endpolyline
+beziercurve bzcur (p1 p2 p3) segs 10 endbeziercurve
+
+
+surface W  color  (1   1   1  ) endsurface   # White
+surface B  color  (0   0   0  ) endsurface   # Black
+surface O  color  (1   0.6 0  ) endsurface   # Orange
+
+instance showCyl body scale (2 2 2) surface O endinstance
+instance shows sph translate (0 0 3) surface O endinstance
+instance showf legs scale (1 1 3) translate (0 0 -3) surface O endinstance
+instance showsmile bzcur scale (0.5 0.5 0.5) rotate (1 0 0) (90) translate (-0.5 1 2.5) surface B endinstance

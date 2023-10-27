@@ -1,0 +1,8 @@
+### 2023.9.7
+### building mobius with tutorial
+
+mobiusstrip mob (1 2 0 10) endmobiusstrip
+
+surface Blue  color  (0   0   1  ) endsurface
+
+instance showmob mob translate (0 0 0) surface Blue endinstance

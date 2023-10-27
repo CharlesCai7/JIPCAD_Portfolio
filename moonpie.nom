@@ -1,0 +1,41 @@
+### 9.28 2023
+### trying to build a moonpie model
+
+include colours.nom endinclude
+
+circle mycir (1.7 20) endcircle
+circle mycir2 (10 100) endcircle
+point p1 (0 0 0) endpoint
+point p2 (0 0 5) endpoint
+polyline l1 (p1 p2) endpolyline
+sweep sw
+    crosssection mycir endcrosssection
+    path l1 mintorsion endpath
+endsweep
+
+sweep sw2
+    crosssection mycir2 endcrosssection
+    path l1 mintorsion endpath
+endsweep
+
+instance body sw2  translate (0 0 0) surface Z endinstance
+
+instance base0 sw  translate (0 10 0) surface Z endinstance
+instance base1 sw  translate (0 10 0) rotate (0 0 1) (19*-1) surface Z endinstance
+instance base2 sw  translate (0 10 0) rotate (0 0 1) (19*1) surface Z endinstance
+instance base3 sw  translate (0 10 0) rotate (0 0 1) (19*2) surface Z endinstance
+instance base4 sw  translate (0 10 0) rotate (0 0 1) (19*3) surface Z endinstance
+instance base5 sw  translate (0 10 0) rotate (0 0 1) (19*4) surface Z endinstance
+instance base6 sw  translate (0 10 0) rotate (0 0 1) (19*5) surface Z endinstance
+instance base7 sw  translate (0 10 0) rotate (0 0 1) (19*6) surface Z endinstance
+instance base8 sw  translate (0 10 0) rotate (0 0 1) (19*7) surface Z endinstance
+instance base9 sw  translate (0 10 0) rotate (0 0 1) (19*8) surface Z endinstance
+instance base10 sw translate (0 10 0) rotate (0 0 1) (19*9) surface Z endinstance
+instance base11 sw translate (0 10 0) rotate (0 0 1) (19*10) surface Z endinstance
+instance base12 sw translate (0 10 0) rotate (0 0 1) (19*11) surface Z endinstance
+instance base13 sw translate (0 10 0) rotate (0 0 1) (19*12) surface Z endinstance
+instance base14 sw translate (0 10 0) rotate (0 0 1) (19*13) surface Z endinstance
+instance base15 sw translate (0 10 0) rotate (0 0 1) (19*14) surface Z endinstance
+instance base16 sw translate (0 10 0) rotate (0 0 1) (19*15) surface Z endinstance
+instance base17 sw translate (0 10 0) rotate (0 0 1) (19*16) surface Z endinstance
+instance base19 sw translate (0 10 0) rotate (0 0 1) (19*17) surface Z endinstance
