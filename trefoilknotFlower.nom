@@ -1,0 +1,41 @@
+include colours.nom endinclude
+
+bank trefoil_slider
+  set symm 1 -10 10 1
+  set turns 1 -10 10 1
+  set maj_rad 3.4 0 10 0.1
+  set min_rad 1.9 0 10 0.1
+  set num_vert 3 3 80 1
+  set tube_radius 0.36 0.01 1 0.01
+  set num_seg 120.00 18 240 3
+  list (symm turns maj_rad min_rad num_vert tube_radius num_seg)
+endbank
+
+backface MS  color  (0 0 0) endbackface
+### instance bf MS scale (100 100 1) translate (0 0 10) surface MS endinstance
+
+### torusknot $trefoil ({expr $trefoil_slider.symm} {expr $trefoil_slider.turns} {expr $trefoil_slider.maj_rad} {expr $trefoil_slider.min_rad} {expr $trefoil_slider.tube_radius} {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil3 (3 2 {expr $trefoil_slider.maj_rad} {expr $trefoil_slider.min_rad} {expr $trefoil_slider.tube_radius} {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil4 (4 3 3 1 {expr $trefoil_slider.tube_radius} {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil5 (5 3 3 1 {expr $trefoil_slider.tube_radius} {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil6 (6 {expr $trefoil_slider.turns} 3 {expr $trefoil_slider.min_rad} {expr $trefoil_slider.tube_radius} {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil7 (7 3 3 1 0.13 {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil8 (8 3 3.4 2.2 0.2 {expr $trefoil_slider.num_vert} {expr $trefoil_slider.num_seg}) endtorusknot
+torusknot $trefoil9 (8 3 6.8 1.9 {expr $trefoil_slider.tube_radius} 3 {expr $trefoil_slider.num_seg}) endtorusknot
+
+
+### instance t0 trefoil3 translate (0 -10 0) rotate (0 1 0) (0) surface Y endinstance
+
+### instance t1 trefoil4 rotate (0 1 0) (0) endinstance
+
+### instance t2 trefoil5 translate (10 0 0) rotate (0 1 0) (0) endinstance
+
+### instance t3 trefoil6 translate (-10 -10 0) rotate (0 1 0) (0) endinstance
+
+instance t4 trefoil7 translate (0 -10 0) rotate (0 0 1) (0) surface V endinstance
+instance t4_d trefoil7 rotate (0 0 1) (15) translate (0 -10 0) surface B endinstance
+instance t4_dd trefoil7 rotate (0 0 1) (30) translate (0 -10 0) surface U endinstance
+
+instance t5 trefoil8 translate (0 -10 0) rotate (0 1 0) (0) surface P endinstance
+
+instance t6 trefoil9 rotate (0 0 1) (22.5) translate (0 -10 0) surface LR endinstance
