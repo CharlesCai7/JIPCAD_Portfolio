@@ -1,0 +1,115 @@
+### 2023.9.8
+### playground for sweep
+include colours.nom endinclude
+
+### Sliders
+bank b
+	set s_rotate 1 1 3 0.05
+	list (s_rotate)
+endbank
+
+circle c1 (0.05 10) endcircle
+circle c2 (0.03 10) endcircle
+circle c3 (0.01 10) endcircle
+point sp1 (-5*cos(3.1415926/18)*sin(3.1415926/18) 5*cos(3.1415926/18)*cos(3.1415926/18) 0) endpoint
+point mid (0 5 0) endpoint
+point sp2 (5*cos(3.1415926/18)*sin(3.1415926/18) 5*cos(3.1415926/18)*cos(3.1415926/18) 0) endpoint
+
+beziercurve l1 (sp1 mid sp2) segs 18 endbeziercurve
+
+sweep sw1
+    crosssection c1 endcrosssection
+    path l1 mintorsion twist (0) endpath
+endsweep
+
+sweep sw2
+    crosssection c2 endcrosssection
+    path l1 mintorsion twist (0) endpath
+endsweep
+
+sweep sw3
+    crosssection c3 endcrosssection
+    path l1 mintorsion twist (0) endpath
+endsweep
+
+### surface C5 color (255/255 0/255 0/255) endsurface
+### surface C6 color (241/255 14/255 14/255 ) endsurface
+### surface C7 color (227/255 28/255 28/255 ) endsurface
+### surface C8 color (213/255 42/255 42/255 ) endsurface
+### surface C9 color (199/255 56/255 56/255 ) endsurface
+### surface C10 color (185/255 70/255 70/255 ) endsurface
+### surface C11 color (171/255 84/255 84/255 ) endsurface
+### surface C12 color (157/255 98/255 98/255 ) endsurface
+### surface C13 color (143/255 112/255 112/255 ) endsurface
+### surface C14 color (129/255 126/255 126/255 ) endsurface
+### surface C15 color (115/255 140/255 140/255 ) endsurface
+### surface C16 color (101/255 154/255 154/255 ) endsurface
+### surface C17 color (87/255 168/255 168/255 ) endsurface
+### surface C18 color (73/255 182/255 182/255 ) endsurface
+### surface C1 color (59/255 196/255 196/255 ) endsurface
+### surface C2 color (45/255 210/255 210/255 ) endsurface
+### surface C3 color (31/255 224/255 224/255 ) endsurface
+### surface C4 color (17/255 238/255 238/255 ) endsurface
+
+surface C9 color (238/255 0 0) endsurface
+surface C10 color (227/255 0 0) endsurface
+surface C11 color (199/255 0 0) endsurface
+surface C12 color (171/255 0 0) endsurface
+surface C13 color (143/255 0 0) endsurface
+surface C14 color (115/255 0 0) endsurface
+surface C15 color (87/255 0 0) endsurface
+surface C16 color (59/255 0 0) endsurface
+surface C17 color (31/255 0 0) endsurface
+surface C18 color (3/255 0 0) endsurface
+surface C1 color (0 0 0) endsurface
+surface C2 color (28/255 0 0) endsurface
+surface C3 color (56/255 0 0) endsurface
+surface C4 color (84/255 0 0) endsurface
+surface C5 color (112/255 0 0) endsurface
+surface C6 color (140/255 0 0) endsurface
+surface C7 color (168/255 0 0) endsurface
+surface C8 color (196/255 0 0) endsurface
+
+
+
+backgroundcolor (0 0 0) endbackgroundcolor
+### backgroundcolor (1 1 1) endbackgroundcolor
+
+group g1
+### instance showsw1 sw1 translate (0 0 0) surface C1 endinstance
+### instance showsw2 sw1 rotate (0 0 1) (20) translate (0 0 0) surface C2 endinstance
+### instance showsw3 sw1 rotate (0 0 1) (40) translate (0 0 0) surface C3 endinstance
+### instance showsw4 sw3 rotate (0 0 1) (60) translate (0 0 0) surface C4 endinstance
+instance showsw5 sw3 rotate (0 0 1) (80) translate (0 0 0) surface C5 endinstance
+instance showsw6 sw2 rotate (0 0 1) (100) translate (0 0 0) surface C6 endinstance
+instance showsw7 sw2 rotate (0 0 1) (120) translate (0 0 0) surface C7 endinstance
+instance showsw8 sw1 rotate (0 0 1) (140) translate (0 0 0) surface C8 endinstance
+instance showsw9 sw1 rotate (0 0 1) (160) translate (0 0 0) surface C9 endinstance
+instance showsw10 sw1 rotate (0 0 1) (180) translate (0 0 0) surface C10 endinstance
+instance showsw11 sw1 rotate (0 0 1) (200) translate (0 0 0) surface C11 endinstance
+instance showsw12 sw2 rotate (0 0 1) (220) translate (0 0 0) surface C12 endinstance
+instance showsw13 sw2 rotate (0 0 1) (240) translate (0 0 0) surface C13 endinstance
+instance showsw14 sw3 rotate (0 0 1) (260) translate (0 0 0) surface C14 endinstance
+### instance showsw15 sw3 rotate (0 0 1) (280) translate (0 0 0) surface C15 endinstance
+### instance showsw16 sw1 rotate (0 0 1) (300) translate (0 0 0) surface C16 endinstance
+### instance showsw17 sw1 rotate (0 0 1) (320) translate (0 0 0) surface C17 endinstance
+### instance showsw18 sw1 rotate (0 0 1) (340) translate (0 0 0) surface C18 endinstance
+endgroup
+
+### form a circle with 30 instances of g1
+group g2
+instance showg1 g1 endinstance
+instance showg2 g1 rotate (0 10 1) (12 * $b.s_rotate) endinstance
+instance showg3 g1 rotate (0 10 1) (24 * $b.s_rotate) endinstance
+instance showg4 g1 rotate (0 10 1) (36 * $b.s_rotate) endinstance
+instance showg5 g1 rotate (0 10 1) (48 * $b.s_rotate) endinstance
+instance showg6 g1 rotate (0 10 1) (60 * $b.s_rotate) endinstance
+instance showg7 g1 rotate (0 10 1) (72 * $b.s_rotate) endinstance
+instance showg8 g1 rotate (0 10 1) (84 * $b.s_rotate) endinstance
+instance showg9 g1 rotate (0 10 1) (96 * $b.s_rotate) endinstance
+instance showg10 g1 rotate (0 10 1) (108 * $b.s_rotate) endinstance
+endgroup
+
+
+instance show2 g2 endinstance
+### instance show3 g2 rotate (0 0 1) (90) endinstance

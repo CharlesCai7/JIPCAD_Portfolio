@@ -1,27 +1,129 @@
-### 2023.9.6
-### Blocky the snowman
+### Light ###
+light l
+    type AMBIENT
+    color (225/255 255/255 255/255)
+endlight
 
-sphere sph (1 360 0 360 10 10) endsphere
+### Bank ###
+bank slider
+    set speed 0.10 0 0.5 0.1
+    list(speed)
+endbank
 
-cylinder body (1 1 360 10) endcylinder
+### Background ###
+backgroundcolor (150/255 185/255 170/255) endbackgroundcolor
 
-funnel legs (1 1.5 1 10) endfunnel
+### Surfaces ###
+surface snow color (255/255 250/255 240/255) endsurface
+surface leather color (50/255 50/255 50/255) endsurface
+surface coal color (50/255 50/255 50/255) endsurface
+surface carrot color (255/255 195/255 70/255) endsurface
+surface wool color (225/255 75/255 75/255) endsurface
+surface stick color (140/255 80/255 20/255) endsurface
+surface black color (0 0 0) endsurface
 
-circle c (1 50) endcircle
+### Basic Blocks ###
+sphere s1 (1 360 0 90 100 100) endsphere
+sphere s2 (1 360 270 360 100 100) endsphere
+group s
+    instance s1_inst s1 surface ball_surface endinstance
+    instance s2_inst s2 surface ball_surface endinstance
+endgroup
 
-point p1 (0 1 0) endpoint
-point p2 (1 0 0) endpoint
-point p3 (2 1 0) endpoint
+funnel f (0.01 100 5 50) endfunnel
 
-polyline ply (p1 p2 p3) endpolyline
-beziercurve bzcur (p1 p2 p3) segs 10 endbeziercurve
+cylinder c (1 0.1 360 25 topcap botcap) endcylinder
 
+point sq1 (-1 1 0) endpoint
+point sq2 (-1 -1 0) endpoint
+point sq3 (1 -1 0) endpoint
+point sq4 (1 1 0) endpoint
 
-surface W  color  (1   1   1  ) endsurface   # White
-surface B  color  (0   0   0  ) endsurface   # Black
-surface O  color  (1   0.6 0  ) endsurface   # Orange
+mesh cube
+    face side (sq1 sq2 sq3 sq4 sq1) endface
+endmesh
 
-instance showCyl body scale (2 2 2) surface O endinstance
-instance shows sph translate (0 0 3) surface O endinstance
-instance showf legs scale (1 1 3) translate (0 0 -3) surface O endinstance
-instance showsmile bzcur scale (0.5 0.5 0.5) rotate (1 0 0) (90) translate (-0.5 1 2.5) surface B endinstance
+group halfCube
+    instance sCube cube rotate (1 0 0) (180) endinstance
+    instance lid cube translate (0 0 2) endinstance
+    instance leftSide cube rotate (1 0 0) (90) translate (0 -1 1) surface wool endinstance
+endgroup
+
+group fullCube
+    instance sHalfCube halfCube rotate (1 0 1) (180) translate (-1 0 1) surface wool endinstance
+    instance otherHalf halfCube surface wool endinstance
+endgroup
+
+### Hat ###
+group hat 
+    instance c_inst_3 c scale (1 1 25) surface leather endinstance
+    instance c_inst_4 c scale (1.5 1.5 1) surface leather endinstance
+    instance c_inst_5 c scale (1.05 1.05 5) translate (0 0 0.05) surface wool endinstance
+endgroup
+
+### Head ###
+group head
+    instance s_inst_1 s surface snow endinstance
+    instance s_inst_2 s scale (0.1 0.1 0.1) translate (0.4 0.85 0.25) surface coal endinstance
+    instance s_inst_3 s scale (0.1 0.1 0.1) translate (-0.4 0.85 0.25) surface coal endinstance
+    instance f_inst f rotate (1 0 0) (90) scale (0.25 0.25 0.25) translate (0 1.6 0) surface carrot endinstance
+endgroup
+
+### Scarf ###
+circle scarf_cs (2.5 25) endcircle
+circle scarf_path (7.5 25) endcircle
+sweep scarf_main
+    crosssection scarf_cs endcrosssection
+    path scarf_path mintorsion azimuth (0) twist (0) endpath
+endsweep
+
+group scarf_end 
+    instance fullCube_inst fullCube scale (5 2.5 0.5) surface wool endinstance
+    instance c_inst_9 c scale (0.45 0.45 15) rotate (0 1 0) (90) translate (5 -1.75 0.5) surface wool endinstance
+    instance c_inst_10 c scale (0.45 0.45 15) rotate (0 1 0) (90) translate (5 0 0.5) surface wool endinstance
+    instance c_inst_11 c scale (0.45 0.45 15) rotate (0 1 0) (90) translate (5 1.75 0.5) surface wool endinstance
+endgroup
+
+group scarf 
+    instance scarf_main_inst scarf_main surface wool endinstance
+    instance scarf_end_inst scarf_end rotate (0 1 0) (65) translate (10.5 0 -5) endinstance
+endgroup
+
+### Arms ###
+group arm
+    instance c_inst_6 c scale (0.075 0.075 14.5) surface stick endinstance
+    instance c_inst_7 c scale (0.075 0.075 3) rotate (0 1 0) (55) translate (0 0 1.05) surface stick endinstance
+    instance c_inst_8 c scale (0.075 0.075 3) rotate (0 1 0) (-55) translate (0 0 1.05) surface stick endinstance
+endgroup
+
+### Body ###
+group body
+    instance s_inst_4 s scale (1.5 1.5 1.5) surface snow endinstance
+    instance s_inst_2 s scale (0.1 0.1 0.1) translate (0 1.45 0.25) surface coal endinstance
+    instance s_inst_3 s scale (0.1 0.1 0.1) translate (0 1.45 -0.25) surface coal endinstance
+endgroup
+
+### Shadow ###
+group shadow
+    instance c_inst_1 c scale (1 1 0.1) translate ({expr 2 * sin($slider.speed * $frame)} 0 0) surface black endinstance
+    instance c_inst_2 c scale ({expr 1.75 * sin($slider.speed * $frame)} {expr 1.75 * sin($slider.speed * $frame)} 0.1) translate ({expr 2 * sin($slider.speed * $frame)} 0 0) surface black endinstance
+endgroup
+
+### Scene ###
+instance l_inst l endinstance
+
+group head_scene
+    instance hat_inst hat scale (0.6 0.6 0.6) translate (0 0 0.9) rotate (1 0 0) (10) endinstance
+    instance head_inst head endinstance
+endgroup
+
+group body_scene
+    instance body_inst body translate (0 0 -2) endinstance
+    instance scarf_inst scarf scale (0.125 0.125 0.125) rotate (0 0 1) (55) translate (0 0 -0.75) endinstance
+    instance arm_inst_1 arm rotate (0 1 0) (55 - 10 * sin(2 * $slider.speed * $frame)) rotate (0 0 1) (30) translate (1 0.5 -1.75) endinstance
+    instance arm_inst_2 arm rotate (0 1 0) (-50 + 10 * sin(2 * $slider.speed * $frame)) rotate (0 0 1) (-30) translate (-1 0.5 -1.75) endinstance
+endgroup
+
+instance head_scene_inst head_scene translate ({expr 1.75 * sin($slider.speed * $frame)} 0 {expr -1.5 * (1.75 * sin($slider.speed * $frame)^2) + 6}) endinstance
+instance body_scene_inst body_scene translate ({expr 2 * sin($slider.speed * $frame)} 0 {expr -0.75 * (2 * sin($slider.speed * $frame)^2) + 5}) endinstance
+instance shadow_inst shadow endinstance

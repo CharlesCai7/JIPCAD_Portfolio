@@ -1,0 +1,231 @@
+#
+## _p521_RIB.nom
+##
+## Make a valence-5 bi-pyramid with pentagonal prism arms
+##  >> give different colors to neighboring ribbons.
+#
+# >>> This one wraps the edges around just TWO neighboring "windows" (= tunnels ino the interior void).
+#
+## >>> In order to define sharp edges...
+## >>> Create non-solid schaffolding (no prisms, just pentagonal polylines)
+##     so that a whole "oneFace" can be defined on the various auxiliary polylines.
+#
+## CHS 2024/03/9   focus on a clean "oneFace"-ribbon description
+
+
+################ Some Surface colors #############################
+
+surface M  color  (0.8 0   0.8) endsurface   # Magenta
+surface Z  color  (0.8 0   0.5) endsurface   # Zinnober
+surface R  color  (0.9 0   0  ) endsurface   # Red
+surface O  color  (0.8 0.5 0  ) endsurface   # Orange
+surface Y  color  (0.9 0.9 0  ) endsurface   # Yellow
+surface L  color  (0.6 0.8 0  ) endsurface   # Lime
+surface G  color  (0   0.6 0  ) endsurface   # Green
+surface A  color  (0   0.9 0.7) endsurface   # Aqua
+surface C  color  (0   0.8 0.8) endsurface   # Cyan
+surface U  color  (0   0.6 0.9) endsurface   # Uniform
+surface B  color  (0   0.2 0.8) endsurface   # Blue
+surface V  color  (0.3 0   0.8) endsurface   # Violet
+surface P  color  (0.6 0   0.7) endsurface   # Purple
+
+surface W  color  (1   1   1  ) endsurface   # White
+surface S  color  (0.7 0.7 0.7) endsurface   # Snow
+surface D  color  (0.4 0.4 0.4) endsurface   # Dark
+surface K  color  (0   0   0  ) endsurface   # blacK
+
+backgroundcolor  (0.8 0.9 1.0)  endbackgroundcolor 
+
+
+########  Coordinate system  #######################
+
+point ooo (0 0 0) endpoint
+point xoo (1 0 0) endpoint
+point oyo (0 1 0) endpoint
+point ooz (0 0 1) endpoint
+
+polyline xax ( ooo xoo ) endpolyline
+polyline yax ( ooo oyo ) endpolyline
+polyline zax ( ooo ooz ) endpolyline
+
+group coord_axes
+    instance ixax xax  surface R  endinstance
+    instance iyax yax  surface B  endinstance
+    instance izax zax  surface G  endinstance
+endgroup
+
+# instance ica  coord_axes   endinstance      ## show only when needed
+
+
+#############################  Params  ########################################
+
+bank p
+    set wrad     0.06     0.01    0.1   0.01   ##  worm radius
+    set twid     0.6      0.1     2     0.01   ## tip width spread
+    set tazim    0      -90      90     1
+
+    set prad     0.5      0.1     2     0.01   ## penta radius
+    set psep     2.0      2       5     0.1    ## radial penta separation 
+    set phgt     0.6      0.5     1     0.1    ## penta height  
+    set ptwst  -18      -18      18     1      ## penta twist  -
+    set prot   -36      -36      36     1      ## arm azimuth  -
+
+    set jrad     0.6      0.5     1.2   0.01   ## inner decagonal junction patch
+    set jhgt     1.5      1       2     0.01   ## junction patch height
+    set jazim    0      -60     180     1       
+
+   list ( wrad  twid tazim   prad psep phgt ptwst prot  jrad jhgt jazim  )
+endbank
+
+
+#####  Add enough auxiliary schaffolding geometry so that the whole oneFace and OneEdge can be described  #####
+
+#####  Just five pentagons (and flipped versions)  thru which the edge-curves pass  ############
+circle  pent  ( {expr $p.prad}  5 )   endcircle    ## adjust thickness of the arms
+
+instance ipY  pent  surface Y  rotate(0 0 1)({expr $p.ptwst+$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(0 0 1)(  0)  endinstance 
+instance ipO  pent  surface O  rotate(0 0 1)({expr $p.ptwst+$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(0 0 1)( 72)  endinstance 
+instance ipR  pent  surface R  rotate(0 0 1)({expr $p.ptwst+$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(0 0 1)(144)  endinstance
+instance ipZ  pent  surface Z  rotate(0 0 1)({expr $p.ptwst+$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(0 0 1)(216)  endinstance
+instance ipM  pent  surface M  rotate(0 0 1)({expr $p.ptwst+$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(0 0 1)(288)  endinstance
+# flipped:
+instance iprY pent  surface L  rotate(0 0 1)({expr $p.ptwst-$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(1 0 0)(180)  rotate(0 0 1)(  0)  endinstance 
+instance iprO pent  surface S  rotate(0 0 1)({expr $p.ptwst-$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(1 0 0)(180)  rotate(0 0 1)( 72)  endinstance 
+instance iprR pent  surface S  rotate(0 0 1)({expr $p.ptwst-$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(1 0 0)(180)  rotate(0 0 1)(144)  endinstance
+instance iprZ pent  surface S  rotate(0 0 1)({expr $p.ptwst-$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(1 0 0)(180)  rotate(0 0 1)(216)  endinstance
+instance iprM pent  surface S  rotate(0 0 1)({expr $p.ptwst-$p.prot})  translate( {expr $p.psep} 0 {expr $p.phgt} )  rotate(1 0 0)(180)  rotate(0 0 1)(288)  endinstance
+
+
+#####################  Central decagonal/pentagonal patch for 5-way branch junction  ###################################
+
+mesh jcap
+#  point io  (  0                     0                      {expr $p.jhgt} )  endpoint  #center point, not needed
+#  point io0 ( {expr        $p.jrad}  0                      {expr $p.jhgt} )  endpoint
+   point io1 ( {expr  0.809*$p.jrad}  {expr  0.588*$p.jrad}  {expr $p.jhgt} )  endpoint
+#  point io2 ( {expr  0.309*$p.jrad}  {expr  0.951*$p.jrad}  {expr $p.jhgt} )  endpoint
+   point io3 ( {expr -0.309*$p.jrad}  {expr  0.951*$p.jrad}  {expr $p.jhgt} )  endpoint
+#  point io4 ( {expr -0.809*$p.jrad}  {expr  0.588*$p.jrad}  {expr $p.jhgt} )  endpoint
+   point io5 ( {expr       -$p.jrad}  0                      {expr $p.jhgt} )  endpoint
+#  point io6 ( {expr -0.809*$p.jrad}  {expr -0.588*$p.jrad}  {expr $p.jhgt} )  endpoint
+   point io7 ( {expr -0.309*$p.jrad}  {expr -0.951*$p.jrad}  {expr $p.jhgt} )  endpoint
+#  point io8 ( {expr  0.309*$p.jrad}  {expr -0.951*$p.jrad}  {expr $p.jhgt} )  endpoint
+   point io9 ( {expr  0.809*$p.jrad}  {expr -0.588*$p.jrad}  {expr $p.jhgt} )  endpoint
+#  point iq  (  0                     0                      {expr $p.jhgt+$p.j2off} ) endpoint  #center of junction
+  
+#  polyline jpl  ( io0 io9 io8 io7 io6 io5 io4 io3 io2 io1 io0 )  endpolyline    ## use pentagonal patch instead
+  face jcap      (   io9  io7   io5   io3   io1  )  endface    ## Just use a pentagonal patch.
+endmesh  # jcap
+
+instance icap  jcap   surface V   rotate(0 0 1)({expr $p.jazim})     endinstance                     ## upper junction patch
+instance rcap  jcap   surface V   rotate(0 0 1)({expr $p.jazim})  rotate(1 0 0)(180)  endinstance    ## lower, flipped junction patch
+
+
+#################  Pyramid Tip  Edge Structure  ################################
+
+point ta   (  0                   0                    4.4   )  endpoint  # tip of sculpture (in Z-direction) at +4
+point tbe  ( {expr 1*$p.twid}     0                    2.8 )  endpoint  # on pyr egde
+point tbf  ( {expr 0.655*$p.twid} {expr 0.476*$p.twid} 2.8 )  endpoint  # on pyr face
+point tce  ( {expr 2*$p.twid}     0                    2   )  endpoint
+point tcf  ( {expr 1.309*$p.twid} {expr 0.951*$p.twid} 2   )  endpoint
+#point tcf72 ( {expr -0.496*$p.twid} {expr 1.528*$p.twid} 2 )  endpoint   # rotate merge point from 36 degrees to 108 degrees
+
+polyline tipe ( ta tbe tce ) endpolyline    # PYRAMID tip edge   
+polyline tipf ( ta tbf tcf ) endpolyline    # mid-face line
+
+instance iteY tipe   surface Y   rotate(0 0 1)( {expr $p.tazim }  )  endinstance  ## sharp pyramid edges
+instance iteO tipe   surface O   rotate(0 0 1)( {expr $p.tazim+72} )  endinstance
+instance iteR tipe   surface R   rotate(0 0 1)( {expr $p.tazim+144} )  endinstance
+instance iteZ tipe   surface Z   rotate(0 0 1)( {expr $p.tazim+216} )  endinstance
+instance iteM tipe   surface M   rotate(0 0 1)( {expr $p.tazim+288} )  endinstance
+
+instance itfY tipf   surface Y   rotate(0 0 1)( {expr $p.tazim }  )  endinstance  ## flat, mid-face edges
+instance itfO tipf   surface O   rotate(0 0 1)( {expr $p.tazim+72} )  endinstance
+instance itfR tipf   surface R   rotate(0 0 1)( {expr $p.tazim+144} )  endinstance
+instance itfZ tipf   surface Z   rotate(0 0 1)( {expr $p.tazim+216} )  endinstance
+instance itfM tipf   surface M   rotate(0 0 1)( {expr $p.tazim+288} )  endinstance
+
+### flipped, bottom-half  pyramid: rotated around x-axis
+instance iterY tipe   surface Y   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim }  )  endinstance  ## sharp pyramid edges
+instance iterO tipe   surface O   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+72} )  endinstance
+instance iterR tipe   surface R   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+144} )  endinstance
+instance iterZ tipe   surface Z   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+216} )  endinstance
+instance iterM tipe   surface M   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+288} )  endinstance
+
+instance itfrY tipf   surface Y   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim }  )  endinstance  ## flat, mid-face edges
+instance itfrO tipf   surface O   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+72} )  endinstance
+instance itfrR tipf   surface R   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+144} )  endinstance
+instance itfrZ tipf   surface Z   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+216} )  endinstance
+instance itfrM tipf   surface M   rotate(1 0 0)(180)  rotate(0 0 1)( {expr -$p.tazim+288} )  endinstance
+
+
+##################  Worm along edge-curve,  to make this more visible  #############################  
+
+circle  circ  (  {expr $p.wrad}  9 )   endcircle
+
+polyline epath  ( .iteO.ta .iteY.tbe .iteY.tce .ipY.v1 .iprY.v4 .itfrO.tcf .iprO.v1 .ipO.v4 .icap.jcap.io1 .ipY.v3 .iprY.v2 
+                  .rcap.jcap.io1 .iprM.v3 .ipM.v2 .itfM.tcf .ipY.v0 .iprY.v0 .iterY.tce .iterY.tbe .iterR.ta )  endpolyline
+         
+sweep  worm    crosssection circ endcrosssection     path epath  mintorsion endpath   endsweep
+(*
+instance iwY  worm  surface D     endinstance                  #  SHOW: one Edge-Worm
+instance iwO  worm  surface G  rotate(0 0 1)(72)  endinstance   #  neighbor
+instance iwR  worm  surface O  rotate(0 0 1)(144)  endinstance   #  neighbor
+instance iwZ  worm  surface Z  rotate(0 0 1)(-144)  endinstance   #  neighbor
+instance iwM  worm  surface M  rotate(0 0 1)(-72)  endinstance   #  neighbor
+*)
+
+##########################################################################################################
+#################  Build one RIBBON_FACE  from junction to junction  #####################################
+#################  Use clean sequence of facets in sequential order  #####################################
+
+mesh oneFace
+  face f2   ( .itfM.tcf  .iteM.tce   .ipM.v1    .ipM.v2   )  endface   #   left leg   conn to pent
+  face f1   ( .itfM.tbf  .iteM.tbe   .iteM.tce  .itfM.tcf  )  endface     ##  Trafos are NOT allowed in mesh!
+  face f0   ( .iteM.ta   .iteM.tbe   .itfM.tbf             )  endface  #top tip
+  face f00  ( .iteM.ta   .itfM.tbf   .iteY.tbe             )  endface     ##  rotate(0 0 1)({expr $p.r5}) 
+  face f11  ( .iteY.tbe  .itfM.tbf   .itfM.tcf  .iteY.tce  )  endface 
+  face f22  ( .iteY.tce  .itfM.tcf   .ipY.v0    .ipY.v1   )  endface   #  right leg
+
+  face f3   (  .ipM.v2   .ipM.v1    .iprM.v4    .iprM.v3  )  endface   # left leg cont
+  face f3m  ( .iprY.v0   .iprY.v4   .ipY.v1     .ipY.v0   )  endface   # right leg to left arm  ==  CENTER OF RIBBON
+  face f22r ( .iprY.v4   .iprY.v0    .iterY.tce .itfrO.tcf )  endface   # left arm
+  face f2r  ( .iprO.v0   .iprO.v1    .itfrO.tcf .iterO.tce )  endface   # right arm
+  face f0r  ( .iterO.ta  .iterO.tbe  .itfrO.tbf            )  endface   # bottom tip
+  face f00r ( .iterO.ta  .itfrO.tbf  .iterY.tbe            )  endface   # bottom tip
+  face f1r  ( .itfrO.tbf .iterO.tbe  .iterO.tce .itfrO.tcf )  endface
+  face f11r ( .iterY.tbe .itfrO.tbf  .itfrO.tcf .iterY.tce )  endface
+
+  face f3r  ( .ipO.v0    .ipO.v4    .iprO.v1    .iprO.v0  )  endface 
+
+  face w4 ( .ipO.v4         .ipO.v0    .itfY.tcf  .icap.jcap.io1 ) endface
+  face w5 ( .icap.jcap.io1  .itfY.tcf  .ipY.v2    .ipY.v3        ) endface
+  face w6 ( .ipY.v3         .ipY.v2    .iprY.v3   .iprY.v2       ) endface 
+  face w7 ( .iprY.v2 .iprY.v3 .rcap.jcap.io9 .rcap.jcap.io1 ) endface 
+
+  face w4r ( .iprM.v3 .iprM.v4 .itfrY.tcf .rcap.jcap.io1 ) endface
+  face w5r ( .rcap.jcap.io1 .itfrY.tcf .iprY.v1 .iprY.v2 ) endface
+  face w6r ( .iprY.v2 .iprY.v1 .ipY.v4 .ipY.v3 ) endface
+  face w7r ( .ipY.v3 .ipY.v4 .icap.jcap.io9 .icap.jcap.io1 ) endface 
+
+##### Sharp edges:  Just use the "oneEdge" structure
+  sharp 9  ( .iteO.ta .iteY.tbe .iteY.tce .ipY.v1 .iprY.v4 .itfrO.tcf .iprO.v1 .ipO.v4 .icap.jcap.io1 .ipY.v3 .iprY.v2 
+             .rcap.jcap.io1 .iprM.v3 .ipM.v2 .itfM.tcf .ipY.v0 .iprY.v0 .iterY.tce .iterY.tbe .iterR.ta  )  endsharp  
+
+endmesh  # oneFace
+
+
+## Render surface:  -- directly!
+
+##group surf
+instance  iFY  oneFace  surface Y                    endinstance   
+instance  iFO  oneFace  surface O  rotate(0 0 1)(72)  endinstance
+instance  iFR  oneFace  surface G  rotate(0 0 1)(144)  endinstance
+instance  iFZ  oneFace  surface R  rotate(0 0 1)(-144)  endinstance
+instance  iFM  oneFace  surface C  rotate(0 0 1)(-72)  endinstance
+
+##endgroup
+
+##instance  isurf surf    rotate(0 1 0)(-90)   rotate(0 0 1)(-45)  scale( 3 3 3 )  endinstance    # 
+
+######################################  END  ##########################################################
+
