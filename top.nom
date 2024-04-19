@@ -1,0 +1,320 @@
+#### Color library ####
+surface M  color  (0.9 0.1 1  ) endsurface   # Magenta
+surface Z  color  (1   0   0.6) endsurface   # Zinnober
+surface R  color  (0.9 0.1 0  ) endsurface   # Red
+surface O  color  (1   0.6 0  ) endsurface   # Orange
+surface Y  color  (0.8 0.8 0  ) endsurface   # Yellow
+surface L  color  (0.5 0.8 0  ) endsurface   # Lime
+surface G  color  (0.1 0.8 0  ) endsurface   # Green
+surface A  color  (0   0.9 0.6) endsurface   # Aqua
+surface C  color  (0   0.8 0.9) endsurface   # Cyan
+surface U  color  (0   0.6 1  ) endsurface   # Uniform
+surface B  color  (0   0.3 1  ) endsurface   # Blue
+surface V  color  (0.5 0.1 1  ) endsurface   # Violet
+surface P  color  (0.7 0   0.9) endsurface   # Purple
+
+surface W  color  (1   1   1  ) endsurface   # White
+surface D  color  (0.2 0.2 0.2) endsurface   # Dark
+surface K  color  (0   0   0  ) endsurface   # blacK
+
+circle bottomc (3.5 10) endcircle
+
+circle middlec (10 20) endcircle
+
+circle topc (2 10) endcircle
+
+point p1 (0 0 -3) endpoint
+
+point p2 (0 0 20) endpoint
+
+polyline line2 (p1 p2) endpolyline
+
+backgroundcolor  (0 0 0)  endbackgroundcolor
+
+instance c1 bottomc surface G translate(0 0 2) endinstance
+instance c2 middlec surface B translate(0 0 5) endinstance
+instance c3 topc surface R translate(0 0 7) endinstance
+instance l1 line2 surface O translate(0 0 0) endinstance
+
+
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v9 .c2.v8 .c1.v4 .c1.v5 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+
+
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v10 .c2.v9 .c1.v5 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c2.v11 .c2.v10 .c1.v5 .c1.v6 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v12 .c2.v11 .c1.v6 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v13 .c2.v12 .c1.v6 .c1.v7 ) endface face new1 ( .c2.v14 .c2.v13 .c1.v7 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v15 .c2.v14 .c1.v7 .c1.v8 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c2.v16 .c2.v15 .c1.v8 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .c2.v17 .c2.v16 .c1.v8 .c1.v9 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .c2.v18 .c2.v17 .c1.v9 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .c2.v19 .c2.v18 .c1.v9 .c1.v0 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh5 face new5 ( .c2.v0 .c2.v19 .c1.v0 ) endface endmesh
+instance instTempMesh5 TempMesh5 endinstance
+   
+###########################  
+   
+mesh TempMesh6 face new6 ( .c2.v1 .c2.v0 .c1.v0 .c1.v1 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance
+   
+###########################  
+   
+mesh TempMesh7 face new7 ( .c2.v2 .c2.v1 .c1.v1 ) endface endmesh
+instance instTempMesh7 TempMesh7 endinstance
+   
+###########################  
+   
+mesh TempMesh8 face new8 ( .c2.v3 .c2.v2 .c1.v1 .c1.v2 ) endface endmesh
+instance instTempMesh8 TempMesh8 endinstance
+   
+###########################  
+   
+mesh TempMesh9 face new9 ( .c2.v4 .c2.v3 .c1.v2 ) endface endmesh
+instance instTempMesh9 TempMesh9 endinstance
+   
+###########################  
+   
+mesh TempMesh10 face new10 ( .c2.v5 .c2.v4 .c1.v2 .c1.v3 ) endface endmesh
+instance instTempMesh10 TempMesh10 endinstance
+   
+###########################  
+   
+mesh TempMesh11 face new11 ( .c2.v6 .c2.v5 .c1.v3 ) endface endmesh
+instance instTempMesh11 TempMesh11 endinstance
+   
+###########################  
+   
+mesh TempMesh12 face new12 ( .c2.v7 .c2.v6 .c1.v3 .c1.v4 ) endface endmesh
+instance instTempMesh12 TempMesh12 endinstance
+   
+###########################  
+   
+mesh TempMesh13 face new13 ( .c2.v8 .c2.v7 .c1.v4 ) endface endmesh
+instance instTempMesh13 TempMesh13 endinstance
+   
+###########################  
+   
+mesh TempMesh14 face new14 ( .c3.v3 .c2.v6 .c2.v7 ) endface face new15 ( .c3.v4 .c3.v3 .c2.v7 .c2.v8 ) endface endmesh
+instance instTempMesh14 TempMesh14 endinstance
+   
+###########################  
+   
+mesh TempMesh16 face new16 ( .c3.v4 .c2.v8 .c2.v9 ) endface endmesh
+instance instTempMesh16 TempMesh16 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c3.v5 .c3.v4 .c2.v9 .c2.v10 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c2.v11 .c3.v5 .c2.v10 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .c2.v12 .c3.v6 .c3.v5 .c2.v11 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .c2.v13 .c3.v6 .c2.v12 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .c2.v14 .c3.v7 .c3.v6 .c2.v13 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh5 face new5 ( .c2.v15 .c3.v7 .c2.v14 ) endface endmesh
+instance instTempMesh5 TempMesh5 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v16 .c3.v8 .c3.v7 .c2.v15 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c2.v17 .c3.v8 .c2.v16 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .c2.v18 .c3.v9 .c3.v8 .c2.v17 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v19 .c3.v9 .c2.v18 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c2.v0 .c3.v0 .c3.v9 .c2.v19 ) endface face new2 ( .c2.v1 .c3.v0 .c2.v0 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v2 .c3.v1 .c3.v0 .c2.v1 ) endface face new1 ( .c2.v3 .c3.v1 .c2.v2 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v4 .c3.v2 .c3.v1 .c2.v3 ) endface face new1 ( .c2.v5 .c3.v2 .c2.v4 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c2.v6 .c3.v3 .c3.v2 .c2.v5 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c3.v1 .l1.p2 .c3.v0 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .c3.v2 .l1.p2 .c3.v1 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .c3.v3 .l1.p2 .c3.v2 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .c3.v4 .l1.p2 .c3.v3 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh5 face new5 ( .c3.v5 .l1.p2 .c3.v4 ) endface endmesh
+instance instTempMesh5 TempMesh5 endinstance
+   
+###########################  
+   
+mesh TempMesh6 face new6 ( .c3.v6 .l1.p2 .c3.v5 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance
+   
+###########################  
+   
+mesh TempMesh7 face new7 ( .c3.v7 .l1.p2 .c3.v6 ) endface face new8 ( .c3.v8 .l1.p2 .c3.v7 ) endface endmesh
+instance instTempMesh7 TempMesh7 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c3.v9 .l1.p2 .c3.v8 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c3.v0 .l1.p2 .c3.v9 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .c1.v6 .l1.p1 .c1.v7 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .c1.v5 .l1.p1 .c1.v6 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .c1.v4 .l1.p1 .c1.v5 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .c1.v3 .l1.p1 .c1.v4 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .c1.v2 .l1.p1 .c1.v3 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .c1.v1 .l1.p1 .c1.v2 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .c1.v0 .l1.p1 .c1.v1 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .c1.v9 .l1.p1 .c1.v0 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh5 face new5 ( .c1.v8 .l1.p1 .c1.v9 ) endface endmesh
+instance instTempMesh5 TempMesh5 endinstance
+   
+###########################  
+   
+mesh TempMesh6 face new6 ( .c1.v7 .l1.p1 .c1.v8 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance
+   
+###########################  
+   
+   
+########################### 
+   
+
+
+
+
+

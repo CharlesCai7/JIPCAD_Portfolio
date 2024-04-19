@@ -3,6 +3,8 @@
 
 include colours.nom endinclude
 
+backgroundcolor (0 0 0) endbackgroundcolor
+
 mesh snowmesh
     ### points to form a snowflake
     point p1 (0 0 0) endpoint

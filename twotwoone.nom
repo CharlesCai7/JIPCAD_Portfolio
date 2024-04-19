@@ -1,0 +1,443 @@
+### Sliders
+bank b
+    set y_move 8 0 8 0.1
+	set z_move -0.6 -5 5 0.1
+	list (y_move z_move)
+endbank
+
+
+#### Color library ####
+surface M  color  (0.9 0.1 1  ) endsurface   # Magenta
+surface Z  color  (1   0   0.6) endsurface   # Zinnober
+surface R  color  (0.9 0.1 0  ) endsurface   # Red
+surface O  color  (1   0.6 0  ) endsurface   # Orange
+surface Y  color  (0.8 0.8 0  ) endsurface   # Yellow
+surface L  color  (0.5 0.8 0  ) endsurface   # Lime
+surface G  color  (0.1 0.8 0  ) endsurface   # Green
+surface A  color  (0   0.9 0.6) endsurface   # Aqua
+surface C  color  (0   0.8 0.9) endsurface   # Cyan
+surface U  color  (0   0.6 1  ) endsurface   # Uniform
+surface B  color  (0   0.3 1  ) endsurface   # Blue
+surface V  color  (0.5 0.1 1  ) endsurface   # Violet
+surface P  color  (0.7 0   0.9) endsurface   # Purple
+
+surface W  color  (1   1   1  ) endsurface   # White
+surface D  color  (0.2 0.2 0.2) endsurface   # Dark
+surface K  color  (0   0   0  ) endsurface   # blacK
+
+backgroundcolor  (0 0 0)  endbackgroundcolor
+
+
+#### define the reference points and aixs ####
+point  origin (0 0 0)  endpoint
+point  x  (20 0 0)  endpoint
+point  y  (0 20 0)  endpoint
+point  z  (0 0 20)  endpoint
+polyline xaxis (origin x) endpolyline
+polyline yaxis (origin y) endpolyline
+polyline zaxis (origin z) endpolyline
+
+group gref
+    instance instxaxis xaxis surface R endinstance
+    instance instyaxis yaxis surface G endinstance
+    instance instzaxis zaxis surface B endinstance
+endgroup
+
+### instance instgroup gref endinstance
+
+#### define control points ####
+point  p0_1  (-15 5 0)  endpoint
+point  p0  (-15 5 0)  endpoint
+point  p1  (-12 3 1.5)  endpoint
+point  p2  (-8 0 3)  endpoint
+point  p3  (-5.5 -2 4)  endpoint
+point  p4  (0 0 5)  endpoint
+point  p5  (3 3 6)  endpoint
+point  p6  (5 6 6)  endpoint
+point  p7  (2 6 3)  endpoint
+point  p8  (0 8 0)  endpoint
+point  p9  (-2 6 -3)  endpoint
+point  p10  (-5 6 -6)  endpoint
+point  p11  (-3 3 -6)  endpoint
+point  p12  (0 0 -5)  endpoint
+point  p13  (5.5 -2 -4)  endpoint
+point  p14  (8 0 -3)  endpoint
+point  p15  (12 3 -1.5)  endpoint
+point  p16  (15 5 0)  endpoint
+point  p16_1  (15 5 0)  endpoint
+
+bspline  bs1 order (7) (p0 p0 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p16 p16) segs (50)  endbspline
+instance instbs1 bs1 surface M endinstance
+instance instbs2 bs1 rotate (1 0 0) (180) translate (0 {expr $b.y_move} {expr $b.z_move}) surface M endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v32 .instbs2.v31 .instbs1.v34 .instbs1.v33 ) endface face new1 ( .instbs2.v33 .instbs2.v32 .instbs1.v33 .instbs1.v32 ) endface face new2 ( .instbs2.v34 .instbs2.v33 .instbs1.v32 .instbs1.v31 ) endface face new3 ( .instbs2.v35 .instbs2.v34 .instbs1.v31 .instbs1.v30 ) endface face new4 ( .instbs2.v36 .instbs2.v35 .instbs1.v30 .instbs1.v29 ) endface face new5 ( .instbs2.v37 .instbs2.v36 .instbs1.v29 .instbs1.v28 ) endface face new6 ( .instbs2.v38 .instbs2.v37 .instbs1.v28 .instbs1.v27 ) endface face new7 ( .instbs2.v39 .instbs2.v38 .instbs1.v27 .instbs1.v26 ) endface face new8 ( .instbs2.v40 .instbs2.v39 .instbs1.v26 .instbs1.v25 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v41 .instbs2.v40 .instbs1.v25 .instbs1.v24 ) endface face new1 ( .instbs2.v42 .instbs2.v41 .instbs1.v24 .instbs1.v23 ) endface face new2 ( .instbs2.v43 .instbs2.v42 .instbs1.v23 .instbs1.v22 ) endface face new3 ( .instbs2.v44 .instbs2.v43 .instbs1.v22 .instbs1.v21 ) endface face new4 ( .instbs2.v45 .instbs2.v44 .instbs1.v21 .instbs1.v20 ) endface face new5 ( .instbs2.v46 .instbs2.v45 .instbs1.v20 .instbs1.v19 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh6 face new6 ( .instbs2.v47 .instbs2.v46 .instbs1.v19 .instbs1.v18 ) endface face new7 ( .instbs2.v48 .instbs2.v47 .instbs1.v18 .instbs1.v17 ) endface face new8 ( .instbs2.v49 .instbs2.v48 .instbs1.v17 .instbs1.v16 ) endface face new9 ( .instbs2.v50 .instbs2.v49 .instbs1.v16 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v50 .instbs2.v50 .instbs1.v16 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs1.v49 .instbs1.v50 .instbs1.v16 .instbs1.v15 ) endface face new2 ( .instbs1.v14 .instbs1.v48 .instbs1.v49 .instbs1.v15 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .instbs1.v13 .instbs1.v47 .instbs1.v48 .instbs1.v14 ) endface face new4 ( .instbs1.v12 .instbs1.v46 .instbs1.v47 .instbs1.v13 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v45 .instbs1.v46 .instbs1.v12 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs1.v44 .instbs1.v45 .instbs1.v12 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v43 .instbs1.v44 .instbs1.v12 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v27 .instbs1.v11 .instbs1.v12 .instbs2.v26 ) endface face new2 ( .instbs2.v28 .instbs1.v10 .instbs1.v11 .instbs2.v27 ) endface face new3 ( .instbs2.v29 .instbs1.v9 .instbs1.v10 .instbs2.v28 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .instbs1.v8 .instbs1.v9 .instbs2.v29 .instbs2.v30 ) endface face new5 ( .instbs1.v7 .instbs1.v8 .instbs2.v30 .instbs2.v31 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh6 face new6 ( .instbs1.v6 .instbs1.v7 .instbs2.v31 .instbs2.v32 ) endface face new7 ( .instbs1.v5 .instbs1.v6 .instbs2.v32 .instbs2.v33 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance
+   
+###########################  
+   
+mesh TempMesh8 face new8 ( .instbs1.v4 .instbs1.v5 .instbs2.v33 .instbs2.v34 ) endface face new9 ( .instbs1.v3 .instbs1.v4 .instbs2.v34 .instbs2.v35 ) endface face new10 ( .instbs1.v2 .instbs1.v3 .instbs2.v35 .instbs2.v36 ) endface face new11 ( .instbs1.v1 .instbs1.v2 .instbs2.v36 ) endface endmesh
+instance instTempMesh8 TempMesh8 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v0 .instbs1.v1 .instTempMesh8._instbs2_v36 ) endface face new1 ( .instbs2.v0 .instbs1.v0 .instbs2.v36 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v1 .instbs2.v0 .instbs2.v36 .instbs2.v37 ) endface face new1 ( .instbs2.v2 .instbs2.v1 .instbs2.v37 .instbs2.v38 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs2.v3 .instbs2.v2 .instbs2.v38 ) endface face new3 ( .instbs2.v4 .instbs2.v3 .instbs2.v38 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v5 .instbs2.v4 .instbs2.v38 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v6 .instbs2.v5 .instbs2.v38 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs1.v39 .instbs1.v40 .instbs1.v12 ) endface face new3 ( .instbs1.v12 .instbs1.v40 .instbs1.v41 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v41 .instbs1.v42 .instbs1.v12 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs1.v42 .instbs1.v43 .instbs1.v12 ) endface face new2 ( .instbs1.v12 .instbs1.v38 .instbs1.v39 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v25 .instbs2.v26 .instbs1.v12 .instbs1.v13 ) endface face new1 ( .instbs2.v24 .instbs2.v25 .instbs1.v13 .instbs1.v14 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v25 .instbs1.v36 .instbs1.v35 .instbs2.v26 ) endface face new1 ( .instbs2.v24 .instbs1.v37 .instbs1.v36 .instbs2.v25 ) endface face new2 ( .instbs2.v23 .instbs1.v38 .instbs1.v37 .instbs2.v24 ) endface face new3 ( .instbs2.v22 .instbs1.v39 .instbs1.v38 .instbs2.v23 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .instbs2.v21 .instbs1.v40 .instbs1.v39 .instbs2.v22 ) endface face new5 ( .instbs2.v20 .instbs1.v41 .instbs1.v40 .instbs2.v21 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .instbs2.v19 .instbs1.v42 .instbs1.v41 .instbs2.v20 ) endface face new5 ( .instbs2.v18 .instbs1.v43 .instbs1.v42 .instbs2.v19 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v18 .instbs2.v17 .instbs1.v44 .instbs1.v43 ) endface face new1 ( .instbs2.v17 .instbs1.v45 .instbs1.v44 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v17 .instbs1.v46 .instbs1.v45 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v17 .instbs1.v47 .instbs1.v46 ) endface face new2 ( .instbs2.v16 .instbs1.v48 .instbs1.v47 .instbs2.v17 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .instbs2.v16 .instbs1.v49 .instbs1.v48 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .instbs2.v15 .instbs1.v50 .instbs1.v49 .instbs2.v16 ) endface face new5 ( .instbs2.v31 .instbs2.v30 .instbs1.v34 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v29 .instbs1.v34 .instbs2.v30 ) endface face new1 ( .instbs2.v28 .instbs1.v34 .instbs2.v29 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v28 .instbs2.v27 .instbs1.v35 .instbs1.v34 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v27 .instbs2.v26 .instbs1.v35 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs2.v15 .instbs2.v50 .instbs1.v50 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .instbs2.v15 .instbs2.v49 .instbs2.v50 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .instbs2.v14 .instbs2.v48 .instbs2.v49 .instbs2.v15 ) endface face new5 ( .instbs2.v13 .instbs2.v47 .instbs2.v48 .instbs2.v14 ) endface face new6 ( .instbs2.v12 .instbs2.v46 .instbs2.v47 .instbs2.v13 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v45 .instbs2.v46 .instbs2.v12 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v12 .instbs2.v11 .instbs2.v44 .instbs2.v45 ) endface face new2 ( .instbs2.v11 .instbs2.v43 .instbs2.v44 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v42 .instbs2.v43 .instbs2.v11 .instbs2.v10 ) endface face new1 ( .instbs2.v41 .instbs2.v42 .instbs2.v10 .instbs2.v9 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs2.v40 .instbs2.v41 .instbs2.v9 .instbs2.v8 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .instbs2.v39 .instbs2.v40 .instbs2.v8 .instbs2.v7 ) endface face new4 ( .instbs2.v38 .instbs2.v39 .instbs2.v7 .instbs2.v6 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh5 face new5 ( .instbs1.v11 .instbs1.v37 .instbs1.v38 .instbs1.v12 ) endface endmesh
+instance instTempMesh5 TempMesh5 endinstance
+   
+###########################  
+   
+mesh TempMesh6 face new6 ( .instbs1.v10 .instbs1.v36 .instbs1.v37 .instbs1.v11 ) endface face new7 ( .instbs1.v9 .instbs1.v35 .instbs1.v36 .instbs1.v10 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance
+   
+###########################  
+   
+mesh TempMesh8 face new8 ( .instbs1.v8 .instbs1.v35 .instbs1.v9 ) endface face new9 ( .instbs1.v7 .instbs1.v35 .instbs1.v8 ) endface endmesh
+instance instTempMesh8 TempMesh8 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v6 .instbs1.v35 .instbs1.v7 ) endface face new1 ( .instbs1.v5 .instbs1.v35 .instbs1.v6 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v34 .instbs1.v35 .instbs1.v5 .instbs1.v4 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs1.v3 .instbs1.v34 .instbs1.v4 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs1.v2 .instbs1.v34 .instbs1.v3 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs1.v1 .instbs1.v33 .instbs1.v34 .instbs1.v2 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs1.v0 .instbs1.v33 .instbs1.v1 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs2.v0 .instbs1.v33 .instbs1.v0 ) endface face new3 ( .instbs2.v1 .instbs1.v33 .instbs2.v0 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v2 .instbs1.v32 .instbs1.v33 .instbs2.v1 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v3 .instbs1.v32 .instbs2.v2 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs2.v4 .instbs1.v31 .instbs1.v32 .instbs2.v3 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+   
+###########################  
+   
+mesh TempMesh3 face new3 ( .instbs2.v5 .instbs1.v30 .instbs1.v31 .instbs2.v4 ) endface endmesh
+instance instTempMesh3 TempMesh3 endinstance
+   
+###########################  
+   
+mesh TempMesh4 face new4 ( .instbs2.v6 .instbs1.v29 .instbs1.v30 .instbs2.v5 ) endface endmesh
+instance instTempMesh4 TempMesh4 endinstance   
+
+###########################  
+   
+mesh TempMesh5 face new5 ( .instbs2.v7 .instbs1.v28 .instbs1.v29 .instbs2.v6 ) endface endmesh
+instance instTempMesh5 TempMesh5 endinstance 
+
+###########################  
+   
+mesh TempMesh6 face new6 ( .instbs2.v8 .instbs1.v27 .instbs1.v28 .instbs2.v7 ) endface endmesh
+instance instTempMesh6 TempMesh6 endinstance 
+
+###########################  
+   
+mesh TempMesh7 face new7 ( .instbs2.v9 .instbs1.v26 .instbs1.v27 .instbs2.v8 ) endface endmesh
+instance instTempMesh7 TempMesh7 endinstance
+
+###########################
+
+mesh TempMesh8 face new8 ( .instbs2.v10 .instbs1.v25 .instbs1.v26 .instbs2.v9 ) endface endmesh
+instance instTempMesh8 TempMesh8 endinstance
+
+###########################
+
+mesh TempMesh9 face new9 ( .instbs2.v11 .instbs1.v24 .instbs1.v25 .instbs2.v10 ) endface endmesh
+instance instTempMesh9 TempMesh9 endinstance
+
+###########################
+
+mesh TempMesh10 face new10 ( .instbs2.v12 .instbs1.v23 .instbs1.v24 .instbs2.v11 ) endface endmesh
+instance instTempMesh10 TempMesh10 endinstance
+
+###########################
+
+mesh TempMesh11 face new11 ( .instbs2.v13 .instbs1.v22 .instbs1.v23 .instbs2.v12 ) endface endmesh
+instance instTempMesh11 TempMesh11 endinstance
+
+###########################
+
+mesh TempMesh12 face new12 ( .instbs2.v14 .instbs1.v21 .instbs1.v22 .instbs2.v13 ) endface endmesh
+instance instTempMesh12 TempMesh12 endinstance
+
+###########################
+
+mesh TempMesh13 face new13 ( .instbs2.v15 .instbs1.v20 .instbs1.v21 .instbs2.v14 ) endface endmesh
+instance instTempMesh13 TempMesh13 endinstance
+
+###########################
+
+mesh TempMesh14 face new14 ( .instbs2.v16 .instbs1.v19 .instbs1.v20 .instbs2.v15 ) endface endmesh
+instance instTempMesh14 TempMesh14 endinstance
+
+###########################
+
+mesh TempMesh15 face new15 ( .instbs2.v17 .instbs1.v18 .instbs1.v19 .instbs2.v16 ) endface endmesh
+instance instTempMesh15 TempMesh15 endinstance
+
+###########################
+
+mesh TempMesh16 face new16 ( .instbs2.v18 .instbs1.v17 .instbs1.v18 .instbs2.v17 ) endface endmesh
+instance instTempMesh16 TempMesh16 endinstance
+
+###########################
+
+mesh TempMesh17 face new17 ( .instbs2.v19 .instbs1.v16 .instbs1.v17 .instbs2.v18 ) endface endmesh
+instance instTempMesh17 TempMesh17 endinstance
+
+###########################
+
+mesh TempMesh18 face new18 ( .instbs2.v20 .instbs1.v15 .instbs1.v16 .instbs2.v19 ) endface endmesh
+instance instTempMesh18 TempMesh18 endinstance
+
+###########################
+
+mesh TempMesh19 face new19 ( .instbs2.v21 .instbs1.v14 .instbs1.v15 .instbs2.v20 ) endface endmesh
+instance instTempMesh19 TempMesh19 endinstance
+   
+###########################  
+   
+mesh TempMesh0 face new0 ( .instbs2.v22 .instbs1.v14 .instbs2.v21 ) endface endmesh
+instance instTempMesh0 TempMesh0 endinstance
+   
+###########################  
+   
+mesh TempMesh1 face new1 ( .instbs2.v23 .instbs1.v14 .instbs2.v22 ) endface endmesh
+instance instTempMesh1 TempMesh1 endinstance
+   
+###########################  
+   
+mesh TempMesh2 face new2 ( .instbs2.v24 .instbs1.v14 .instbs2.v23 ) endface endmesh
+instance instTempMesh2 TempMesh2 endinstance
+
+###########################

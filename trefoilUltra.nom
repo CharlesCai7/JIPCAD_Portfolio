@@ -1,0 +1,42 @@
+include colours.nom endinclude
+
+bank p            # init  min    max   step 
+  set sclAtom     0.10    0.1    0.5   0.01    # scale of the Atoms in the BCC
+  set sclNode     0.1     0.02   0.6   0.01    # scale of selected Nodes used in the construction of new sculptures
+  set beamWid     0.2     0.05   0.3   0.05    # width of swept beam
+  set azimBeam   30    -180    180     1       # azimuth of swept beam
+  set rotZ        90    -180    180     5       # rot sculpt around Z 
+  set rotY        180    -180    180     5       # rot sculpt around Y  >>> rotation of the Bakker sculpture
+  set rotX        0    -180    180     5       # rot sculpt around X 
+  set speed      10       0     40     1       # rot-Y speed
+  set twistangle   69    -180    180     1       # twist angle of the swept beam
+  set extra_x    -3    -4    -2     0.1  
+  set extra_y    -0.9    -2     0     0.1
+  set extra_z     3.4     0     5     0.1  
+  set extra2_x   3.2     2.5     4      0.1
+  set extra2_y   1.6     1.5     3      0.05   
+  set extra2_z   2.3     2     3      0.1
+  list ( sclAtom  sclNode  beamWid  azimBeam   rotZ rotY rotX  speed twistangle extra_x extra_y extra_z extra2_x extra2_y extra2_z)    
+endbank
+
+point p1 (-4 0 0) endpoint
+point p2 (-2 3.4641 -4) endpoint
+point p3 (2 3.4641 -2) endpoint
+point p4 (4 0 0) endpoint
+point p5 (0 0 -4) endpoint
+point p6 (-2 3.4641 -2) endpoint
+point p7 (0 6.9282 0) endpoint
+point p8 (2 3.4641 -4) endpoint
+point p9 (0 0 -2) endpoint
+
+polyline line1 (p1 p2 p3 p4 p5 p6 p7 p8 p9 p1 p2) endpolyline
+bspline line2 order (5) (p1 p2 p3 p4 p5 p6 p7 p8 p9 p1 p2 p3) endbspline
+circle c1 (0.25 10) endcircle
+
+sweep sw1  
+    crosssection c1 begincap  endcap  endcrosssection         ##  begincap  endcap   
+    path  line1 mintorsion   azimuth {expr $p.azimBeam} twist {expr $p.twistangle} endpath  # for clean connection!  
+endsweep
+
+
+instance showline1 sw1 surface B endinstance
