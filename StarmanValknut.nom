@@ -1,3 +1,10 @@
+###############################
+##### 07.2024 Charles Cai #####
+##### 'Star-man' valknut ######
+###############################
+
+
+
 include colours.nom endinclude
 
 bank b
@@ -10,16 +17,10 @@ bank b
 	list (z0 z1 z2 z3 z4 z5)
 endbank
 
-### Build a valknut triangle
-
 backgroundcolor (0 0 0) endbackgroundcolor
 
-point p0 (0 0 $b.z0) endpoint
-point p1 (6 10.3923 $b.z1) endpoint
-point p2 (10 3.4641 $b.z2) endpoint
-point p3 (-2 3.4641 $b.z3) endpoint
-point p4 (2 10.3923 $b.z4) endpoint
-point p5 (8 0 $b.z5) endpoint
+### Build a valknut triangle
+
 point p0_2 (0 0 10 + $b.z0) endpoint
 point p1_2 (6 12 -10 - $b.z1) endpoint
 point p2_2 (10 3.4641 10 + $b.z2) endpoint
@@ -29,13 +30,15 @@ point p_ctrl (3 3 7) endpoint
 point p5_2 (8 0 -10 - $b.z5) endpoint
 
 circle c0 (0.3 5) endcircle
-### bspline l0 order (3) (p0 p1 p2 p3 p4 p5 p0 p1 p2 p3 p4 p5) segs (100) endbspline
+
+### You can use comment to switch between different path types: the first one is the curvy bspline, the second one is the sticky polyline
+
 bspline l0 order (4) (p0_2 p1_2 p2_2 p3_2 p4_2 p_ctrl p5_2 p0_2 p1_2 p2_2 p3_2 p4_2 p_ctrl p5_2) segs (100) endbspline
+### polyline l0 (p0_2 p1_2 p2_2 p3_2 p4_2 p5_2 p0_2) endpolyline
 
 sweep sw1
     crosssection c0 begincap endcap endcrosssection               
     path l0 mintorsion twist (0) endpath
 endsweep
 
-instance i1 sw1 surface LR endinstance
-### instance i2 sw1 translate (0 0 5) endinstance
+instance i1 sw1 surface LR endinstance 
