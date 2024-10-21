@@ -1,0 +1,72 @@
+###  CHS 7/16/2024 :  "Lean Trefoil"
+
+include colours.nom endinclude
+
+backgroundcolor (0 0 0) endbackgroundcolor
+
+### reference axes:
+point origin (0 0 0) endpoint
+point px (0.4 0 0) endpoint
+point py (0 0.4 0) endpoint
+point pz (0 0 0.4) endpoint
+
+polyline lineX (origin px) endpolyline
+polyline lineY (origin py) endpolyline
+polyline lineZ (origin pz) endpolyline
+
+instance showrefx lineX  surface R endinstance
+instance showrefy lineY  surface G endinstance
+instance showrefz lineZ  surface B endinstance
+
+
+
+bank p    # init  min   max  step 
+    set rad  0.1   0.01  0.3  0.01
+    set tx   3.5   1     4    0.1
+    set ty   1     0.2   2    0.1
+    set tz   1     0     2    0.1
+    set t2x  1.0   1     2    0.1
+    set t2y  3.6   1     4    0.1
+    set t2z  1     0     2    0.1
+    set oz   0.4   0     1    0.01
+   list ( rad  tx ty tz t2x t2y t2z oz )
+endbank
+
+point t0 ( {expr -$p.tx}  {expr -$p.ty}  {expr -$p.tz} ) endpoint
+point t1 ( {expr -0.5*$p.tx}  {expr -$p.ty}  {expr -0.5*$p.tz -$p.oz} ) endpoint
+point t2 ( {expr  $p.tx}  {expr -$p.ty}  {expr  $p.tz} ) endpoint
+point t3 ( {expr  $p.t2x} {expr  $p.t2y} {expr -$p.t2z} ) endpoint
+point t4 ( 0              {expr  0.5*$p.t2y} {expr -0.5*$p.t2z} ) endpoint
+
+point h1 ( {expr -0.5*$p.tx}  {expr -$p.ty}  {expr -0.5*$p.tz -2*$p.oz} ) endpoint
+point h2 ( {expr  0.5*$p.tx}  {expr -$p.ty}  {expr -0.5*$p.tz } ) endpoint
+
+polyline base  ( t1 t2 t3 t4 ) endpolyline  ## visible trefoil
+polyline conn  ( t1 h1 h2 ) endpolyline  ## hidden connectors
+
+#  instance ibase base  surface R   scale( 0.1 0.1 0.1 ) endinstance 
+
+circle c0 ( {expr $p.rad}  5 ) endcircle
+
+### bspline spline  order (3) (p0_2 p1_2 p2_2 p3_2 p4_2 ) segs (100) endbspline
+
+sweep Tref
+    crosssection c0       endcrosssection  #  begincap endcap             
+    path base   mintorsion      endpath
+endsweep
+
+sweep Conn
+    crosssection c0       endcrosssection  #  begincap endcap             
+    path conn   mintorsion      endpath
+endsweep
+
+instance iTC  Tref   surface C   scale( 0.1 0.1 0.1 )  endinstance
+instance iTB  Tref   surface B   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+instance iTG  Tref   surface G   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
+
+instance iCO  Conn   surface O   scale( 0.1 0.1 0.1 )  endinstance
+instance iCR  Conn   surface R   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+instance iCM  Conn   surface M   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
+
+
+########################  END  ##########################

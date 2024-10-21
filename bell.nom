@@ -46,8 +46,8 @@ instance sBellCup LibBell translate (0 0 3) surface GR endinstance
 genimplicitsurf bellTop func [-z+((x/sqrt(4.25))^2)+((y/sqrt(4.25))^2)] (-10 10 -10 10 -3 3 30 30 30) endgenimplicitsurf
 instance sBellTop bellTop surface GR endinstance
 
-### torus bellLip (8.57904423581 (8.94427191-8.57904423581)*2 360 0 360 30 30) endtorus
-### instance sBellLip bellLip translate (0 0 13 ) surface GR endinstance
+torus bellLip (8.57904423581 (8.94427191-8.57904423581)*2 360 0 360 30 30) endtorus
+instance sBellLip bellLip translate (0 0 13 ) surface GR endinstance
 
 ### cylinder topCapper (0.75 0.55 360 30 botcap topcap) endcylinder
 ### instance sTopCapper topCapper surface GR endinstance

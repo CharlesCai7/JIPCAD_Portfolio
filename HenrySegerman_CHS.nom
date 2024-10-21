@@ -1,0 +1,97 @@
+#################################
+###                           ###
+###       Charles Cai         ###
+###       2023.11.17          ###
+###    HenrySegerman's Knot   ### 
+###                           ###
+#################################
+
+### CHS edits  7/16/2024
+
+include colours.nom endinclude
+
+bank p            # init  min    max   step 
+  set sclAtom     0.10    0.1    0.5   0.01    # scale of the Atoms in the BCC
+  set sclNode     0.1     0.02   0.6   0.01    # scale of selected Nodes used in the construction of new sculptures
+  set beamWid     0.2     0.05   0.3   0.05    # width of swept beam
+  set azimBeam   30    -180    180     1       # azimuth of swept beam
+  set rotZ        90    -180    180     5       # rot sculpt around Z 
+  set rotY        180    -180    180     5       # rot sculpt around Y  >>> rotation of the Bakker sculpture
+  set rotX        0    -180    180     5       # rot sculpt around X 
+  set speed      10       0     40     1       # rot-Y speed
+  set twistangle   69    -180    180     1       # twist angle of the swept beam
+  set extra_x    -3    -4    -2     0.1  
+  set extra_y    -0.9    -2     0     0.1
+  set extra_z     3.4     0     5     0.1  
+  set extra2_x   3.2     2.5     4      0.1
+  set extra2_y   1.6     1.5     3      0.05   
+  set extra2_z   2.3     2     3      0.1
+  list ( sclAtom  sclNode  beamWid  azimBeam   rotZ rotY rotX  speed twistangle extra_x extra_y extra_z extra2_x extra2_y extra2_z)    
+endbank
+
+backgroundcolor (0 0 0) endbackgroundcolor
+
+
+### reference axes:
+point origin (0 0 0) endpoint
+point px (20 0 0) endpoint
+point py (0 20 0) endpoint
+point pz (0 0 20) endpoint
+
+polyline lineX (origin px) endpolyline
+polyline lineY (origin py) endpolyline
+polyline lineZ (origin pz) endpolyline
+
+instance showrefx lineX  surface R endinstance
+instance showrefy lineY  surface G endinstance
+instance showrefz lineZ  surface B endinstance
+
+### the control points of the sculpture:
+point p_5 (4 1.7 4) endpoint
+point p_4 (4 1.7 5) endpoint
+point p_3 (5.5 -3 6) endpoint
+point p_2 (0 0 6) endpoint
+point p_1 (-4 3 1) endpoint
+point p0 (-4 0 0) endpoint
+point p1 (-4 -3 0) endpoint
+point p2 (0 0 -3) endpoint
+point p3 (4 3 0) endpoint
+point p4 (4 0 0) endpoint
+point p5 (4 -3 1) endpoint
+point p6 (0 0 2) endpoint
+point p7 (0 0 3) endpoint
+point p8 (2.4 1.8 4) endpoint
+point p9 (2.4 1.8 6) endpoint
+point p10 (-2.25 -1.1 7) endpoint
+point p11 (-3 -1.5 3) endpoint
+point p_extra ({expr $p.extra_x} {expr $p.extra_y} {expr $p.extra_z}) endpoint
+point p12 (-3.25 -1.8 1.5) endpoint
+point p13 (0 0 0) endpoint
+point p14 (3 2.25 1) endpoint
+point p15 ({expr $p.extra2_x + 0.2} {expr $p.extra2_y} 1.5) endpoint
+point p_extra2 ({expr $p.extra2_x + 0.1} {expr $p.extra2_y} {expr $p.extra2_z}) endpoint
+point p16 ({expr $p.extra2_x} {expr $p.extra2_y} 2.5) endpoint
+
+circle c1 (0.5  5 ) endcircle  ###
+
+bspline line2 order (7) (p_extra p12 p13 p14 p15 p16 p_5 p_4 p_3 p_2 p_1 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p_extra p12 p13 p14 p15 p16 p_5) segs (100) endbspline
+
+bspline line_3 order (3) (p_extra p12 p13 p14 p15 p16 p_5 p_4 p_3 p_2 p_1   p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p_extra p12 p13  ) segs (100) endbspline
+
+polyline line_1  (p_extra p12 p13 p14 p15 p16 p_5 p_4 p_3 p_2 p_1 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p_extra  ) endpolyline
+polyline line_1a  ( p6 p7 p8 p9 p10 p11   p12 p13 p14 p15 p16 p_5 p_4 p_3 p_2    ) endpolyline  ## > -- p_extra
+polyline line_1b  ( p_2 p_1  p0 p1 p2 p3 p4 p5 p6   ) endpolyline
+
+
+sweep sw1a  
+    crosssection c1    begincap  endcap  endcrosssection     
+    path  line_1a    mintorsion   azimuth {expr $p.azimBeam} twist {expr $p.twistangle} endpath  # for clean connection!  
+endsweep
+
+sweep sw1b  
+    crosssection c1    begincap  endcap  endcrosssection     
+    path  line_1b    mintorsion   azimuth {expr $p.azimBeam} twist {expr $p.twistangle} endpath  # for clean connection!  
+endsweep
+
+instance showsw sw1a rotate(0 0 1)({expr $p.rotZ})  rotate(0 1 0)({expr $p.rotY})  rotate(1 0 0)({expr $p.rotX}) surface R endinstance
+instance showsw sw1b rotate(0 0 1)({expr $p.rotZ})  rotate(0 1 0)({expr $p.rotY})  rotate(1 0 0)({expr $p.rotX}) surface C endinstance

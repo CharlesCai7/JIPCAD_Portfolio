@@ -1,0 +1,161 @@
+###############################
+##### 07.2024 Charles Cai #####
+#####   Flower valknut   ######
+###############################
+
+
+
+include colours.nom endinclude
+
+### bank b
+### 	set z0 10 -1 12 0.5
+###     set z1 -2 -10 -2 0.5
+###     set z2 3 2 10 0.5
+###     set z3 -5 -10 2 0.5
+###     set z4 2 -2 10 0.5
+###     set z5 -4 -10 -2 0.5
+### 	list (z0 z1 z2 z3 z4 z5)
+### endbank
+
+backgroundcolor (0 0 0) endbackgroundcolor
+
+### Build a valknut triangle
+point p1 (4 8 -1) endpoint
+point op1 (3.8 7.5 -5) endpoint
+point dp1 (3.5 7 -1) endpoint
+point p3 (2 3.4641 -1) endpoint
+point dp3 (1 3.4641 -1)endpoint
+point op3 (2 3.4641 -5) endpoint
+point p5 (6 3.3 -1) endpoint
+point dp5 (5.7 4 -0.8)endpoint
+point op5 (6.5 3.3 -5) endpoint
+
+point p0_2 (0 0 2) endpoint
+point p1_2 (6 12 -2) endpoint
+point p2_2 (10 3.4641 2) endpoint
+point p3_2 (-2 3.4641 -2) endpoint
+point p4_2 (1.5 10.3923 2) endpoint
+point p_ctrl (3 3 0) endpoint
+point p5_2 (8 0 -2) endpoint
+
+circle c0 (0.3 12) endcircle
+
+### You can use comment to switch between different path types: the first one is the curvy bspline, the second one is the sticky polyline
+
+### bspline l0 order (4) (p0_2 p1_2 p2_2 p3_2 p4_2 p_ctrl p5_2 p0_2 p1_2 p2_2 p3_2 p4_2 p_ctrl p5_2) segs (100) endbspline
+### polyline l0 (p0_2 p1_2 p2_2 p3_2 p4_2 p_ctrl p5_2 p0_2) endpolyline
+
+polyline l0 (op1 p1 p1_2 p2_2 p3 op5) endpolyline
+polyline l1 (op3 dp3 p3_2 p4_2 dp5 op1) endpolyline
+polyline l2 (op5 p5 p5_2 p0_2 dp1 op3) endpolyline
+
+polyline l0 (p1 p1_2 p2_2 p3) endpolyline
+polyline l1 (dp3 p3_2 p4_2 dp5) endpolyline
+polyline l2 (p5 p5_2 p0_2 dp1) endpolyline
+bspline bl0 order (3) (op1 p1 p1_2 p2_2 p3 op5) segs (100) endbspline
+bspline bl1 order (3) (op3 dp3 p3_2 p4_2 dp5 op1) segs (100) endbspline
+bspline bl2 order (3) (op5 p5 p5_2 p0_2 dp1 op3) segs (100) endbspline
+
+polyline l3 (dp5 op1 p1) endpolyline
+polyline l4 (dp1 op3 dp3) endpolyline
+polyline l5 (p3 op5 p5) endpolyline
+bspline bl3 order (3) (dp5 op1 p1) segs (100) endbspline
+bspline bl4 order (3) (dp1 op3 dp3) segs (100) endbspline
+bspline bl5 order (3) (p3 op5 p5) segs (100) endbspline
+
+polyline loop (op1 p1 p1_2 p2_2 p3 op5 p5 p5_2 p0_2 dp1 op3 dp3 p3_2 p4_2 dp5 op1) endpolyline
+bspline bloop order (3) (op1 p1 p1_2 p2_2 p3 op5 p5 p5_2 p0_2 dp1 op3 dp3 p3_2 p4_2 dp5 op1) segs (100) endbspline
+
+
+sweep sw0
+    crosssection c0 begincap endcap endcrosssection               
+    path l0 mintorsion twist (0) endpath
+endsweep
+
+sweep sw1
+    crosssection c0 begincap endcap endcrosssection               
+    path l1 mintorsion twist (0) endpath
+endsweep
+
+sweep sw2
+    crosssection c0 begincap endcap endcrosssection               
+    path l2 mintorsion twist (0) endpath
+endsweep
+
+sweep sw3
+    crosssection c0 begincap endcap endcrosssection               
+    path l3 mintorsion twist (0) endpath
+endsweep
+
+sweep sw4
+    crosssection c0 begincap endcap endcrosssection               
+    path l4 mintorsion twist (0) endpath
+endsweep
+
+sweep sw5
+    crosssection c0 begincap endcap endcrosssection               
+    path l5 mintorsion twist (0) endpath
+endsweep
+
+sweep swloop
+    crosssection c0 begincap endcap endcrosssection               
+    path loop mintorsion twist (0) endpath
+endsweep
+
+sweep swbl0
+    crosssection c0 begincap endcap endcrosssection               
+    path bl0 mintorsion twist (0) endpath
+endsweep
+
+sweep swbl1
+    crosssection c0 begincap endcap endcrosssection               
+    path bl1 mintorsion twist (0) endpath
+endsweep
+
+sweep swbl2
+    crosssection c0 begincap endcap endcrosssection               
+    path bl2 mintorsion twist (0) endpath
+endsweep
+
+sweep swbl3
+    crosssection c0 begincap endcap endcrosssection               
+    path bl3 mintorsion twist (0) endpath
+endsweep
+
+sweep swbl4
+    crosssection c0 begincap endcap endcrosssection               
+    path bl4 mintorsion twist (0) endpath
+endsweep
+
+sweep swbl5
+    crosssection c0 begincap endcap endcrosssection               
+    path bl5 mintorsion twist (0) endpath
+endsweep
+
+sweep swbloop
+    crosssection c0 begincap endcap endcrosssection               
+    path bloop mintorsion twist (0) endpath
+endsweep
+
+### petal
+### instance i0 sw0 surface LR endinstance 
+### instance i1 sw1 surface LR endinstance
+### instance i2 sw2 surface LR endinstance
+### Pistil
+### instance i3 sw3 surface O endinstance
+### instance i4 sw4 surface O endinstance
+### instance i5 sw5 surface O endinstance
+
+### instance iloop swloop surface LR endinstance
+
+
+instance i0 swbl0 surface LR endinstance
+instance i1 swbl1 surface LR endinstance
+instance i2 swbl2 surface LR endinstance
+
+instance i3 swbl3 surface O endinstance
+instance i4 swbl4 surface O endinstance
+instance i5 swbl5 surface O endinstance
+
+### instance ibloop swbloop surface LR endinstance
+

@@ -1,0 +1,103 @@
+###  CHS 7/16/2024 :  "Lean Trefoil"
+
+include colours.nom endinclude
+
+backgroundcolor (0 0 0) endbackgroundcolor
+
+### reference axes:
+point origin (0 0 0) endpoint
+point px (0.4 0 0) endpoint
+point py (0 0.4 0) endpoint
+point pz (0 0 0.4) endpoint
+
+polyline lineX (origin px) endpolyline
+polyline lineY (origin py) endpolyline
+polyline lineZ (origin pz) endpolyline
+
+instance showrefx lineX  surface R endinstance
+instance showrefy lineY  surface G endinstance
+instance showrefz lineZ  surface B endinstance
+
+
+
+bank p    # init  min   max  step 
+    set rad  0.1   0.01  0.3  0.01
+    set tx   3.5   1     4    0.1
+    set ty   1     0.2   2    0.1
+    set tz   1     0     2    0.1
+    set t2x  1.0   1     2    0.1
+    set t2y  3.6   1     4    0.1
+    set t2z  1.6     0     2    0.1
+    set oz   0.4   0     1    0.01
+    set rx   0.8   -10     4    0.1
+    set ry   -0.7     -5   2    0.1
+    set rz   1.4     -1     2    0.1
+   list ( rad  tx ty tz t2x t2y t2z oz rx ry rz)
+endbank
+
+point t0 ( {expr -$p.tx}  {expr -$p.ty}  {expr -$p.tz} ) endpoint
+point t1 ( {expr -0.5*$p.tx}  {expr -$p.ty}  {expr -0.5*$p.tz -$p.oz} ) endpoint
+point t2 ( {expr  $p.tx}  {expr -$p.ty}  {expr  $p.tz} ) endpoint
+point t3 ( 0.7+{expr  $p.t2x} {expr  $p.t2y} {expr -$p.t2z} ) endpoint
+point t4 ( 0              {expr  0.5*$p.t2y} {expr -0.5*$p.t2z} ) endpoint
+### point t5 ( {expr  -1+0.5*$p.tx}  {expr 3-$p.ty}  {expr -0.5*$p.tz } ) endpoint
+### rotate h2 for 120 degrees counterclockwise around the z-axis
+point rh2 ( {expr ($p.rx)}  {expr $p.rx * (2+0.5*$p.rx)*(0.866) - (0.2+$p.ry)*(-0.5) / (2+0.5*$p.rx)*(-0.5) + (0.2+$p.ry)*(0.866)}  {expr -0.5*$p.rz } ) endpoint
+point rh1 ( {expr -0.5*$p.rx}  {expr -$p.ry}  {expr -0.5*$p.rz -2*$p.oz} ) endpoint
+
+point h1 ( {expr -0.5*$p.tx}  {expr -$p.ty}  {expr -0.5*$p.tz -2*$p.oz} ) endpoint
+point h2 ( {expr 0.1 + 0.5*$p.tx}  {expr -$p.ty}  {expr -0.5*$p.tz + 2} ) endpoint
+### middle point between h1 and h2
+point h3 ( {expr -1 + 0.5*(-0.5*$p.tx + 3+0.5*$p.tx)}  {expr -0.18 -$p.ty}  -3 ) endpoint
+### middle point between t1 and h1
+point h4 ( {expr 0.5*(-0.5*$p.tx -0.5*$p.tx)}  {expr 0.5*(-$p.ty -$p.ty)}  {expr 0.5*(-0.5*$p.tz -2*$p.oz -0.5*$p.tz)} ) endpoint
+
+polyline base  ( t1 t2 t3 t4 ) endpolyline  ## visible trefoil
+bspline bbase order (3) (h1 t1 t2 t3 t4 rh2) segs (100) endbspline  ## visible trefoil
+polyline conn  ( t1 h1 h2 ) endpolyline  ## hidden connectors
+bspline bconn order (3) (t1 h1 h3 h2) segs (100) endbspline  ## hidden connectors
+
+#  instance ibase base  surface R   scale( 0.1 0.1 0.1 ) endinstance 
+
+circle c0 ( {expr $p.rad}  5 ) endcircle
+
+
+sweep Tref
+    crosssection c0       endcrosssection  #  begincap endcap             
+    path base   mintorsion      endpath
+endsweep
+
+sweep bTref
+    crosssection c0   begincap endcap    endcrosssection  #  begincap endcap             
+    path bbase   mintorsion      endpath
+endsweep
+
+sweep Conn
+    crosssection c0       endcrosssection  #  begincap endcap             
+    path conn   mintorsion      endpath
+endsweep
+
+sweep bConn
+    crosssection c0   begincap endcap    endcrosssection  #  begincap endcap             
+    path bconn   mintorsion      endpath
+endsweep
+
+### instance iTC  Tref   surface C   scale( 0.1 0.1 0.1 )  endinstance
+### instance iTB  Tref   surface B   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+### instance iTG  Tref   surface G   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
+
+### instance iCO  Conn   surface O   scale( 0.1 0.1 0.1 )  endinstance
+### instance iCR  Conn   surface R   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+### instance iCM  Conn   surface M   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
+
+instance ibTC  bTref   surface PI   scale( 0.1 0.1 0.1 )  endinstance
+instance ibTB  bTref   surface PI   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+instance ibTG  bTref   surface PI   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
+
+instance ibCO  bConn   surface Z   scale( 0.1 0.1 0.1 )  endinstance
+instance ibCR  bConn   surface Z   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+instance ibCM  bConn   surface Z   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
+   
+
+
+########################  END  ##########################

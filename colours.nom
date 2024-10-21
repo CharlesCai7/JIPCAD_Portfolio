@@ -13,6 +13,7 @@ surface B  color  (0   0.3 1  ) endsurface   # Blue
 surface V  color  (0.5 0.1 1  ) endsurface   # Violet
 surface P  color  (0.7 0   0.9) endsurface   # Purple
 surface LR color (240/255 128/255 128/255) endsurface #Light Red
+surface PI color (252/255 186/255 203/255) endsurface #Pink
 surface BR color (139/255 69/255 19/255) endsurface #Brown
 surface GR color (105/255 105/255 105/255) endsurface #Gray
 surface CPR color (184/255 134/255 11/255) endsurface #Copper
