@@ -32,7 +32,10 @@ bank p    # init  min   max  step
     set rx   0.8   -10     4    0.1
     set ry   -0.7     -5   2    0.1
     set rz   1.4     -1     2    0.1
-   list ( rad  tx ty tz t2x t2y t2z oz rx ry rz)
+    set hx   0.8   -10     4    0.1
+    set hy   -0.7     -5   2    0.1
+    set hz   1.4     -10     2    0.1  
+   list ( rad  tx ty tz t2x t2y t2z oz rx ry rz hx hy hz)
 endbank
 
 point t0 ( {expr -$p.tx}  {expr -$p.ty}  {expr -$p.tz} ) endpoint
@@ -52,14 +55,17 @@ point h3 ( {expr -1 + 0.5*(-0.5*$p.tx + 3+0.5*$p.tx)}  {expr -0.18 -$p.ty}  -3 )
 ### middle point between t1 and h1
 point h4 ( {expr 0.5*(-0.5*$p.tx -0.5*$p.tx)}  {expr 0.5*(-$p.ty -$p.ty)}  {expr 0.5*(-0.5*$p.tz -2*$p.oz -0.5*$p.tz)} ) endpoint
 
+point handler ({expr $p.hx} {expr $p.hy} {expr $p.hz}) endpoint
+
+
 polyline base  ( t1 t2 t3 t4 ) endpolyline  ## visible trefoil
-bspline bbase order (3) (h1 t1 t2 t3 t4 rh2) segs (100) endbspline  ## visible trefoil
+bspline bbase order (3) (h1 t1 t2 t3 t4 rh2 handler) segs (100) endbspline  ## visible trefoil
 polyline conn  ( t1 h1 h2 ) endpolyline  ## hidden connectors
 bspline bconn order (3) (t1 h1 h3 h2) segs (100) endbspline  ## hidden connectors
 
 #  instance ibase base  surface R   scale( 0.1 0.1 0.1 ) endinstance 
 
-circle c0 ( {expr $p.rad}  5 ) endcircle
+circle c0 ( {expr $p.rad}  6 ) endcircle
 
 
 sweep Tref
@@ -94,8 +100,8 @@ instance ibTC  bTref   surface PI   scale( 0.1 0.1 0.1 )  endinstance
 instance ibTB  bTref   surface PI   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
 instance ibTG  bTref   surface PI   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
 
-instance ibCO  bConn   surface Z   scale( 0.1 0.1 0.1 )  endinstance
-instance ibCR  bConn   surface Z   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
+### instance ibCO  bConn   surface Z   scale( 0.1 0.1 0.1 )  endinstance
+### instance ibCR  bConn   surface Z   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(120)   endinstance
 instance ibCM  bConn   surface Z   scale( 0.1 0.1 0.1 )   rotate(0 0 1)(240)   endinstance
    
 
